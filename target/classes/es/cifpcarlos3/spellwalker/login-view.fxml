@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="661.0" prefWidth="1764.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.cifpcarlos3.spellwalker.MainAppController">
+
+    <children>
+
+        <ImageView fitHeight="241.0" fitWidth="276.0">
+            <image>
+                <Image url="@spellwalker_title.png" />
+            </image>
+            <VBox.margin>
+                <Insets bottom="30.0" />
+            </VBox.margin>
+        </ImageView>
+
+        <VBox fx:id="tabla" alignment="CENTER_LEFT" maxWidth="450.0" spacing="15.0">
+            <padding>
+                <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+            </padding>
+            <children>
+
+                <Label styleClass="tex" text="Usuario">
+                    <VBox.margin>
+                        <Insets bottom="5.0" />
+                    </VBox.margin>
+                </Label>
+                <TextField fx:id="campoUsuario" prefHeight="35.0" styleClass="texto" />
+
+                <Label styleClass="tex" text="Contraseña">
+                    <VBox.margin>
+                        <Insets bottom="5.0" top="10.0" />
+                    </VBox.margin>
+                </Label>
+                <PasswordField fx:id="campoContrasena" prefHeight="35.0" styleClass="texto" />
+
+                <Button fx:id="btnAcceder" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlerAcceder" styleClass="botones" text="Iniciar sesión" textAlignment="CENTER">
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </Button>
+
+                <Button fx:id="btnCrearUsuario" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlerCrearUsuario" styleClass="botones" text="Crear usuario" textAlignment="CENTER" />
+            
+            </children>
+            <VBox.margin>
+                <Insets bottom="20.0" />
+            </VBox.margin>
+        </VBox>
+
+    </children>
+
+</VBox>
