@@ -28,11 +28,13 @@ public class MainApp extends Application {
     }
 
     public static void configurarStage(Stage stage) {
-        if (stage == null) return;
+        if (stage == null)
+            return;
 
         // Limpiar iconos anteriores y añadir el nuevo
         stage.getIcons().clear();
-        stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/es/cifpcarlos3/spellwalker/spellwalker_title.ico")));
+        stage.getIcons()
+                .add(new Image(MainApp.class.getResourceAsStream("/es/cifpcarlos3/spellwalker/spellwalker_title.ico")));
 
         // Listener para la escena actual (si ya tiene una)
         if (stage.getScene() != null) {
@@ -55,7 +57,6 @@ public class MainApp extends Application {
             }
         });
     }
-
 
     public static void main(String[] args) {
         launch();

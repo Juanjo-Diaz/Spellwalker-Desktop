@@ -136,7 +136,7 @@ public class DetallePersonajeController implements Initializable {
             // Comprobar si ya existe en la tabla
             boolean yaExiste = tvHechizos.getItems().stream()
                     .anyMatch(h -> h.getNombre().equals(seleccionado));
-            
+
             if (yaExiste) {
                 mostrarError("El personaje ya conoce este hechizo.");
                 return;
@@ -205,7 +205,8 @@ public class DetallePersonajeController implements Initializable {
         // Permitir confirmar pulsando ENTER
         pf.setOnAction(e -> {
             Button okButton = (Button) dialog.getDialogPane().lookupButton(btnConfirmar);
-            if (okButton != null) okButton.fire();
+            if (okButton != null)
+                okButton.fire();
         });
 
         dialog.setResultConverter(dialogButton -> {

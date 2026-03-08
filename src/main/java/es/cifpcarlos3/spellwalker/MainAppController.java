@@ -24,8 +24,6 @@ public class MainAppController implements Initializable {
     @FXML
     private PasswordField campoContrasena;
 
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
@@ -34,7 +32,7 @@ public class MainAppController implements Initializable {
     public void handlerAcceder(ActionEvent event) {
         String usuario = campoUsuario.getText().trim();
         String contrasena = campoContrasena.getText().trim();
-        if (ConexionApi.login(usuario, contrasena)){
+        if (ConexionApi.login(usuario, contrasena)) {
             try {
                 MainApp.usuario.put("usuario", usuario);
                 FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("crear_personaje-view.fxml"));
@@ -53,8 +51,7 @@ public class MainAppController implements Initializable {
                 e.printStackTrace();
             }
 
-        }
-        else {
+        } else {
             Alert alertContrasena = new Alert(Alert.AlertType.ERROR);
             alertContrasena.setTitle("Error");
             alertContrasena.setContentText("La contraseña introducida no es valida");
@@ -107,8 +104,4 @@ public class MainAppController implements Initializable {
         }
     }
 
-
 }
-
-
-

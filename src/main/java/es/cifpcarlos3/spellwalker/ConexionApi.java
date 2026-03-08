@@ -99,7 +99,6 @@ public class ConexionApi {
     return !resp.contains("\"type\":\"error\"");
   }
 
-
   public static String generarHash(String usuario, String password) {
     try {
       MessageDigest md = MessageDigest.getInstance("SHA1");
@@ -292,7 +291,8 @@ public class ConexionApi {
         return -1;
 
       String valStr = json.substring(start, end).replace("\"", "").trim();
-      if (valStr.equals("null") || valStr.isEmpty()) return -1;
+      if (valStr.equals("null") || valStr.isEmpty())
+        return -1;
       return Integer.parseInt(valStr);
     } catch (Exception e) {
       return -1;
@@ -803,7 +803,8 @@ public class ConexionApi {
             { "type": "close" }
           ]
         }
-        """.formatted(idPersonaje);
+        """
+        .formatted(idPersonaje);
 
     String resp = postToTurso(payload);
     return extraerNombresDeJson(resp);
@@ -828,7 +829,8 @@ public class ConexionApi {
     String resp = postToTurso(payload);
     try {
       int start = resp.indexOf("\"value\":\"");
-      if (start == -1) return "";
+      if (start == -1)
+        return "";
       start += 9;
       int end = resp.indexOf("\"", start);
       return resp.substring(start, end);
@@ -970,7 +972,8 @@ public class ConexionApi {
             { "type": "close" }
           ]
         }
-        """.formatted(idPersonaje);
+        """
+        .formatted(idPersonaje);
 
     String resp = postToTurso(payload);
     return extraerHechizosDeJson(resp);
@@ -990,7 +993,8 @@ public class ConexionApi {
             { "type": "close" }
           ]
         }
-        """.formatted(nombre);
+        """
+        .formatted(nombre);
 
     String resp = postToTurso(payload);
     List<Hechizo> lista = extraerHechizosDeJson(resp);
@@ -1012,8 +1016,7 @@ public class ConexionApi {
             values.get(5),
             parseSafeInt(values.get(6), 0),
             parseSafeInt(values.get(7), 0),
-            parseSafeInt(values.get(8), 0)
-        ));
+            parseSafeInt(values.get(8), 0)));
       }
     }
     return hechizos;
@@ -1021,37 +1024,41 @@ public class ConexionApi {
 
   private static int parseSafeInt(String val, int def) {
     try {
-      if (val == null || val.equals("null") || val.isEmpty()) return def;
+      if (val == null || val.equals("null") || val.isEmpty())
+        return def;
       return Integer.parseInt(val);
     } catch (NumberFormatException e) {
       return def;
     }
   }
 
-  public static boolean crearHechizo(String nombre, int costeAp, int costeMana, String tipo, String velocidad, int legendario, int escuelaId, int esFusion) throws IOException {
-    String payload = String.format("""
-        {
-          "requests": [
+  public static boolean crearHechizo(String nombre, int costeAp, int costeMana, String tipo, String velocidad,
+      int legendario, int escuelaId, int esFusion) throws IOException {
+    String payload = String.format(
+        """
             {
-              "type": "execute",
-              "stmt": {
-                "sql": "INSERT INTO SPELLS (NOMBRE, COSTE_AP, COSTE_MANA, TIPO, VELOCIDAD, LEGENDARIO, ESCUELA_ID, \\" ES_FUSION\\") VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                "args": [
-                  {"type": "text", "value": "%s"},
-                  {"type": "integer", "value": "%d"},
-                  {"type": "integer", "value": "%d"},
-                  {"type": "text", "value": "%s"},
-                  {"type": "text", "value": "%s"},
-                  {"type": "integer", "value": "%d"},
-                  {"type": "integer", "value": "%d"},
-                  {"type": "integer", "value": "%d"}
-                ]
-              }
-            },
-            { "type": "close" }
-          ]
-        }
-        """, nombre, costeAp, costeMana, tipo, velocidad, legendario, escuelaId, esFusion);
+              "requests": [
+                {
+                  "type": "execute",
+                  "stmt": {
+                    "sql": "INSERT INTO SPELLS (NOMBRE, COSTE_AP, COSTE_MANA, TIPO, VELOCIDAD, LEGENDARIO, ESCUELA_ID, \\" ES_FUSION\\") VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                    "args": [
+                      {"type": "text", "value": "%s"},
+                      {"type": "integer", "value": "%d"},
+                      {"type": "integer", "value": "%d"},
+                      {"type": "text", "value": "%s"},
+                      {"type": "text", "value": "%s"},
+                      {"type": "integer", "value": "%d"},
+                      {"type": "integer", "value": "%d"},
+                      {"type": "integer", "value": "%d"}
+                    ]
+                  }
+                },
+                { "type": "close" }
+              ]
+            }
+            """,
+        nombre, costeAp, costeMana, tipo, velocidad, legendario, escuelaId, esFusion);
     String resp = postToTurso(payload);
     return resp.contains("\"affected_row_count\":1");
   }

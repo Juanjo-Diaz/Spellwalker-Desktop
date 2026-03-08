@@ -36,7 +36,7 @@ public class CrearHechizoController implements Initializable {
         try {
             comboTipo.getItems().addAll("Cargable", "Canalizable", "Encadenable", "Normal");
             comboVelocidad.getItems().addAll("Rápido", "Normal", "Lento", "Rápida");
-            
+
             List<String> escuelas = ConexionApi.obtenerTodasLasEscuelas();
             comboEscuela.getItems().addAll(escuelas);
         } catch (Exception e) {
@@ -54,7 +54,8 @@ public class CrearHechizoController implements Initializable {
             String velocidad = comboVelocidad.getValue();
             String escuelaNombre = comboEscuela.getValue();
 
-            if (nombre == null || nombre.isBlank() || apStr == null || manaStr == null || tipo == null || velocidad == null || escuelaNombre == null) {
+            if (nombre == null || nombre.isBlank() || apStr == null || manaStr == null || tipo == null
+                    || velocidad == null || escuelaNombre == null) {
                 mostrarAlerta("Error", "Por favor, rellena todos los campos.", Alert.AlertType.ERROR);
                 return;
             }

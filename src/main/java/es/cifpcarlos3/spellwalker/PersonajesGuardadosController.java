@@ -50,7 +50,6 @@ public class PersonajesGuardadosController implements Initializable {
         String usuario = (String) MainApp.usuario.get("usuario");
         System.out.println("USUARIO LOGUEADO = " + usuario);
 
-
         try {
             List<PersonajesId> personajesId = ConexionApi.obtenerPersonajesDeUsuario(usuario);
 
@@ -61,17 +60,14 @@ public class PersonajesGuardadosController implements Initializable {
             for (PersonajesId p : personajesId) {
 
                 String nombreCampana = ConexionApi.obtenerNombreCampanaPorId(
-                        Integer.parseInt(p.getIdCampana())
-                );
+                        Integer.parseInt(p.getIdCampana()));
 
                 List<String> escuelas = ConexionApi.obtenerEscuelasDePersonaje(
-                        Integer.parseInt(p.getId())
-                );
+                        Integer.parseInt(p.getId()));
                 String nombreEscuela = String.join(", ", escuelas);
 
                 List<String> spells = ConexionApi.obtenerSpellsDePersonaje(
-                        Integer.parseInt(p.getId())
-                );
+                        Integer.parseInt(p.getId()));
                 String spellsTexto = String.join(", ", spells);
 
                 tablaPersonajes.getItems().add(
@@ -81,9 +77,7 @@ public class PersonajesGuardadosController implements Initializable {
                                 nombreCampana,
                                 nombreEscuela,
                                 spellsTexto,
-                                p.getDescripcion()
-                        )
-                );
+                                p.getDescripcion()));
             }
 
             tablaPersonajes.setOnMouseClicked(event -> {
