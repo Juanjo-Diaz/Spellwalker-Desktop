@@ -69,19 +69,15 @@ public class DetallePersonajeController implements Initializable {
 
     private void cargarDatos() {
         try {
-            // Cargar Escuelas
             List<String> escuelas = ConexionApi.obtenerEscuelasDePersonaje(personaje.getId());
             lvEscuelas.getItems().setAll(escuelas);
 
-            // Cargar Hechizos
             List<Hechizo> spells = ConexionApi.obtenerHechizosDePersonaje(personaje.getId());
             tvHechizos.getItems().setAll(spells);
 
-            // Cargar Descripción
             String descripcion = ConexionApi.obtenerDescripcionPersonaje(personaje.getId());
             taDescripcion.setText(descripcion);
 
-            // Llenar ComboBoxes
             cbEscuelas.getItems().setAll(ConexionApi.obtenerTodasLasEscuelas());
             cbHechizos.getItems().setAll(ConexionApi.obtenerTodosNombresHechizos());
 
@@ -95,10 +91,7 @@ public class DetallePersonajeController implements Initializable {
     public void handlerAnadirEscuela(ActionEvent event) {
         String seleccionada = cbEscuelas.getSelectionModel().getSelectedItem();
         if (seleccionada != null) {
-            if (lvEscuelas.getItems().size() >= 3) {
-                mostrarError("Un personaje no puede tener más de 3 escuelas.");
-                return;
-            }
+
             if (lvEscuelas.getItems().contains(seleccionada)) {
                 mostrarError("El personaje ya pertenece a esta escuela.");
                 return;

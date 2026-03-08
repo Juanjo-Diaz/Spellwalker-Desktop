@@ -6,7 +6,7 @@
 
     <groupId>es.cifpcarlos3</groupId>
     <artifactId>SpellWalker</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1</version>
     <name>SpellWalker</name>
 
     <properties>

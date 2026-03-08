@@ -4,12 +4,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox spacing="20" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.cifpcarlos3.spellwalker.DetallePersonajeController" styleClass="main-container">
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
+<AnchorPane prefHeight="900.0" prefWidth="1764.0" styleClass="root" stylesheets="@detalle_personaje.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.cifpcarlos3.spellwalker.DetallePersonajeController">
+    <children>
+        <VBox alignment="CENTER" spacing="20" styleClass="main-container" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0" AnchorPane.bottomAnchor="50.0">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
 
-    <Label fx:id="lblTitulo" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+    <Label fx:id="lblTitulo" styleClass="title-text"/>
 
     <GridPane hgap="10" vgap="10">
         <columnConstraints>
@@ -17,24 +19,24 @@
             <ColumnConstraints hgrow="ALWAYS"/>
         </columnConstraints>
 
-        <Label text="Campaña:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-        <Label fx:id="lblCampana" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <Label text="Campaña:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="label-text"/>
+        <Label fx:id="lblCampana" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="label-text"/>
 
-        <Label text="Escuelas (máx 3):" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Label text="Escuelas (máx 3):" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="label-text"/>
         <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <HBox spacing="10" alignment="CENTER_LEFT">
-                <ComboBox fx:id="cbEscuelas" prefWidth="200"/>
-                <Button text="Añadir Escuela" onAction="#handlerAnadirEscuela"/>
+                <ComboBox fx:id="cbEscuelas" prefWidth="200" styleClass="input-field"/>
+                <Button text="Añadir Escuela" onAction="#handlerAnadirEscuela" styleClass="primary-button"/>
             </HBox>
             <ListView fx:id="lvEscuelas" prefHeight="100"/>
-            <Button text="Eliminar Escuela Seleccionada" onAction="#handlerEliminarEscuela"/>
+            <Button text="Eliminar Escuela Seleccionada" onAction="#handlerEliminarEscuela" styleClass="secondary-button"/>
         </VBox>
 
-        <Label text="Hechizos:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <Label text="Hechizos:" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="label-text"/>
         <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <HBox spacing="10" alignment="CENTER_LEFT">
-                <ComboBox fx:id="cbHechizos" prefWidth="200"/>
-                <Button text="Añadir Hechizo" onAction="#handlerAnadirHechizo"/>
+                <ComboBox fx:id="cbHechizos" prefWidth="200" styleClass="input-field"/>
+                <Button text="Añadir Hechizo" onAction="#handlerAnadirHechizo" styleClass="primary-button"/>
             </HBox>
             <TableView fx:id="tvHechizos" prefHeight="250">
                 <columns>
@@ -47,17 +49,19 @@
                     <TableColumn fx:id="colFusion" text="Fusión" prefWidth="80"/>
                 </columns>
             </TableView>
-            <Button text="Eliminar Hechizo Seleccionado" onAction="#handlerEliminarHechizo"/>
+            <Button text="Eliminar Hechizo Seleccionado" onAction="#handlerEliminarHechizo" styleClass="secondary-button"/>
         </VBox>
 
-        <Label text="Descripción:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-        <TextArea fx:id="taDescripcion" prefHeight="100" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <Label text="Descripción:" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="label-text"/>
+        <TextArea fx:id="taDescripcion" prefHeight="100" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="input-field"/>
     </GridPane>
 
     <HBox spacing="10" alignment="CENTER_RIGHT">
-        <Button text="Borrar Personaje" onAction="#handlerBorrarPersonaje" style="-fx-background-color: #ff4444; -fx-text-fill: white;"/>
-        <Button text="Guardar Cambios" onAction="#handlerGuardar"/>
-        <Button text="Volver" onAction="#handlerVolver"/>
+        <Button text="Borrar Personaje" onAction="#handlerBorrarPersonaje" styleClass="secondary-button"/>
+        <Button text="Guardar Cambios" onAction="#handlerGuardar" styleClass="primary-button"/>
+        <Button text="Volver" onAction="#handlerVolver" styleClass="primary-button"/>
     </HBox>
 
-</VBox>
+        </VBox>
+    </children>
+</AnchorPane>

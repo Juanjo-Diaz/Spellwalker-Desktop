@@ -31,17 +31,14 @@ public class MainApp extends Application {
         if (stage == null)
             return;
 
-        // Limpiar iconos anteriores y añadir el nuevo
         stage.getIcons().clear();
         stage.getIcons()
                 .add(new Image(MainApp.class.getResourceAsStream("/es/cifpcarlos3/spellwalker/spellwalker_title.ico")));
 
-        // Listener para la escena actual (si ya tiene una)
         if (stage.getScene() != null) {
             agregarManejadorF11(stage, stage.getScene());
         }
 
-        // Listener para futuras escenas
         stage.sceneProperty().addListener((observable, oldScene, newScene) -> {
             if (newScene != null) {
                 agregarManejadorF11(stage, newScene);

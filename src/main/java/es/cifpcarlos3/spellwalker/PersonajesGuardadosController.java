@@ -48,7 +48,6 @@ public class PersonajesGuardadosController implements Initializable {
 
     private void cargarPersonajes() {
         String usuario = (String) MainApp.usuario.get("usuario");
-        System.out.println("USUARIO LOGUEADO = " + usuario);
 
         try {
             List<PersonajesId> personajesId = ConexionApi.obtenerPersonajesDeUsuario(usuario);

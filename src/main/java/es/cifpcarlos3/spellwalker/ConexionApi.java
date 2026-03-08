@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ConexionApi {
 
-  private static final String PROXY_URL = "http://localhost:8080/api/query";
+  private static final String PROXY_URL = "https://backendspellwalker.onrender.com/api/query";
 
   public static String postToTurso(String jsonPayload) throws IOException {
     try {
