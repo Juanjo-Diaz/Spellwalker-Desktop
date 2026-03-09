@@ -1,4 +1,4 @@
-package es.cifpcarlos3.spellwalker;
+package com.spellwalker.spellwalker_desktop;
 
 public class Hechizo {
     private int id;
@@ -9,8 +9,8 @@ public class Hechizo {
     private String velocidad;
     private int legendario;
     private int escuelaId;
-    private int esFusion; // En SQLite/LibSQL el boolean se guarda a veces como 0/1
-
+    private int esFusion; 
+    
     public Hechizo(int id, String nombre, int costeAp, int costeMana, String tipo, String velocidad, int legendario,
             int escuelaId, int esFusion) {
         this.id = id;

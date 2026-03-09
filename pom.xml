@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>es.cifpcarlos3</groupId>
+    <groupId>com.spellwalker</groupId>
     <artifactId>SpellWalker</artifactId>
     <version>0.1</version>
     <name>SpellWalker</name>
@@ -66,7 +66,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>es.cifpcarlos3.spellwalker/es.cifpcarlos3.spellwalker.HelloApplication
+                            <mainClass>com.spellwalker.spellwalker_desktop/com.spellwalker.spellwalker_desktop.MainApp
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

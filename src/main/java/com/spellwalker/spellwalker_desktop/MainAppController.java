@@ -1,4 +1,4 @@
-package es.cifpcarlos3.spellwalker;
+package com.spellwalker.spellwalker_desktop;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import es.cifpcarlos3.spellwalker.ConexionApi;
+import com.spellwalker.spellwalker_desktop.ConexionApi;
 
 public class MainAppController implements Initializable {
 
@@ -35,7 +35,7 @@ public class MainAppController implements Initializable {
         if (ConexionApi.login(usuario, contrasena)) {
             try {
                 MainApp.usuario.put("usuario", usuario);
-                FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("crear_personaje-view.fxml"));
+                FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/com/spellwalker/spellwalker_desktop/crear_personaje-view.fxml"));
                 Scene scene = new Scene(loader.load());
 
                 Stage stage = new Stage();
@@ -67,7 +67,7 @@ public class MainAppController implements Initializable {
 
     private void crearPersonaje() {
         try {
-            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("crear_personaje-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/com/spellwalker/spellwalker_desktop/crear_personaje-view.fxml"));
             Scene scene = new Scene(loader.load());
 
             Stage stage = new Stage();
@@ -87,7 +87,7 @@ public class MainAppController implements Initializable {
     @FXML
     public void handlerCrearUsuario(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("registro-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/com/spellwalker/spellwalker_desktop/registro-view.fxml"));
             Scene scene = new Scene(loader.load());
 
             Stage stage = new Stage();

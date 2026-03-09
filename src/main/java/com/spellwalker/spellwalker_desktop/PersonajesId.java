@@ -1,4 +1,4 @@
-package es.cifpcarlos3.spellwalker;
+package com.spellwalker.spellwalker_desktop;
 
 public class PersonajesId {
     private String id;

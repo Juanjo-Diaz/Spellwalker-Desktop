@@ -1,4 +1,4 @@
-package es.cifpcarlos3.spellwalker;
+package com.spellwalker.spellwalker_desktop;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +18,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("login-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("/com/spellwalker/spellwalker_desktop/login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
         stage.setMaximized(true);
@@ -33,7 +33,7 @@ public class MainApp extends Application {
 
         stage.getIcons().clear();
         stage.getIcons()
-                .add(new Image(MainApp.class.getResourceAsStream("/es/cifpcarlos3/spellwalker/spellwalker_title.ico")));
+                .add(new Image(MainApp.class.getResourceAsStream("/com/spellwalker/spellwalker_desktop/spellwalker_title.ico")));
 
         if (stage.getScene() != null) {
             agregarManejadorF11(stage, stage.getScene());

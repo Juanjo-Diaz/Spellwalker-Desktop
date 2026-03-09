@@ -1,4 +1,4 @@
-package es.cifpcarlos3.spellwalker;
+package com.spellwalker.spellwalker_desktop;
 
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Properties;
-import es.cifpcarlos3.spellwalker.ConexionApi;
+import com.spellwalker.spellwalker_desktop.ConexionApi;
 
 public class RegistroController {
 
@@ -107,7 +107,7 @@ public class RegistroController {
     @FXML
     public void handlerLogin(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("login-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/com/spellwalker/spellwalker_desktop/login-view.fxml"));
             Scene scene = new Scene(loader.load());
 
             Stage stage = new Stage();

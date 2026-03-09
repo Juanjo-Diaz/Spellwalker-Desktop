@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="es.cifpcarlos3.spellwalker.PersonajesGuardadosController"
+            fx:controller="com.spellwalker.spellwalker_desktop.PersonajesGuardadosController"
             stylesheets="@personajes_guardados.css">
 
     <top>

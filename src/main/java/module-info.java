@@ -1,4 +1,4 @@
-module es.cifpcarlos3.spellwalker {
+module com.spellwalker.spellwalker_desktop {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.base;
@@ -8,6 +8,6 @@ module es.cifpcarlos3.spellwalker {
     requires java.net.http;
 
 
-    opens es.cifpcarlos3.spellwalker to javafx.fxml;
-    exports es.cifpcarlos3.spellwalker;
+    opens com.spellwalker.spellwalker_desktop to javafx.fxml;
+    exports com.spellwalker.spellwalker_desktop;
 }

@@ -1,4 +1,4 @@
-package es.cifpcarlos3.spellwalker;
+package com.spellwalker.spellwalker_desktop;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -93,7 +93,7 @@ public class PersonajesGuardadosController implements Initializable {
 
     private void abrirDetallePersonaje(Personaje personaje) {
         try {
-            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("detalle_personaje-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/com/spellwalker/spellwalker_desktop/detalle_personaje-view.fxml"));
             Scene scene = new Scene(loader.load());
 
             DetallePersonajeController controller = loader.getController();
@@ -115,7 +115,7 @@ public class PersonajesGuardadosController implements Initializable {
 
     public void handlerVolver(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("crear_personaje-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/com/spellwalker/spellwalker_desktop/crear_personaje-view.fxml"));
             Scene scene = new Scene(loader.load());
 
             Stage stage = new Stage();

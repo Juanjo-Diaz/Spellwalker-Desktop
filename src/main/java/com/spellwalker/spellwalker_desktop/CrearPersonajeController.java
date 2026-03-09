@@ -1,4 +1,4 @@
-package es.cifpcarlos3.spellwalker;
+package com.spellwalker.spellwalker_desktop;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -145,7 +145,7 @@ public class CrearPersonajeController implements Initializable {
     public void handlerCerrarSesion(ActionEvent actionEvent) {
         try {
             MainApp.usuario.clear();
-            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("login-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/com/spellwalker/spellwalker_desktop/login-view.fxml"));
             Scene scene = new Scene(loader.load());
 
             Stage stage = new Stage();
@@ -165,7 +165,7 @@ public class CrearPersonajeController implements Initializable {
     @FXML
     public void handlerPersonajesGuardados(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("personajes_guardados.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/com/spellwalker/spellwalker_desktop/personajes_guardados.fxml"));
             Scene scene = new Scene(loader.load());
 
             Stage stage = new Stage();
@@ -185,7 +185,7 @@ public class CrearPersonajeController implements Initializable {
     @FXML
     public void handlerIrACrearHechizo(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("crear_hechizo-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/com/spellwalker/spellwalker_desktop/crear_hechizo-view.fxml"));
             Scene scene = new Scene(loader.load());
 
             Stage stage = (Stage) campoNombre.getScene().getWindow();

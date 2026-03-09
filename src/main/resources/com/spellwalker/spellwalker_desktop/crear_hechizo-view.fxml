@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1764.0" styleClass="root-pane" stylesheets="@crear_hechizo.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.cifpcarlos3.spellwalker.CrearHechizoController">
+<AnchorPane prefHeight="900.0" prefWidth="1764.0" styleClass="root-pane" stylesheets="@crear_hechizo.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.spellwalker.spellwalker_desktop.CrearHechizoController">
     <children>
         <VBox alignment="TOP_CENTER" spacing="25" styleClass="main-container" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="55.0">
             <Text fill="white" styleClass="title-text" text="CREACIÓN DE HECHIZO">
