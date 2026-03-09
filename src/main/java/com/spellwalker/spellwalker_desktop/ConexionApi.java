@@ -463,30 +463,6 @@ public class ConexionApi {
     }
   }
 
-  public static int crearCampana(String nombreCampana) throws IOException {
-
-    int nuevoId = obtenersiguienteIdCampana();
-
-    String payload = """
-        {
-          "requests": [
-            {
-              "type": "execute",
-              "stmt": {
-                "sql": "INSERT INTO CAMPANA (ID_CAMPANA, NOMBRE) VALUES (?, ?)",
-                "args": [{"type": "integer", "value": "%d"}, {"type": "text", "value": "%s"}]
-              }
-            },
-            { "type": "close" }
-          ]
-        }
-        """.formatted(nuevoId, nombreCampana);
-
-    postToTurso(payload);
-
-    return nuevoId;
-  }
-
   public static boolean login(String username, String password) {
     try {
       String hash = generarHash(username, password);
