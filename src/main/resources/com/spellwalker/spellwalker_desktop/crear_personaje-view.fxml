@@ -1,108 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1764.0" styleClass="root-pane" stylesheets="@crear_personaje.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.spellwalker.spellwalker_desktop.CrearPersonajeController">
+<?import javafx.geometry.Insets?>
+<ScrollPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.spellwalker.spellwalker_desktop.CrearPersonajeController"
+            fitToWidth="true" fitToHeight="true"
+            styleClass="root-pane"
+            stylesheets="@crear_personaje.css">
 
-    <children>
+    <content>
 
-        <VBox alignment="TOP_CENTER" layoutX="-14.0" layoutY="50.0" spacing="25" styleClass="main-container" AnchorPane.leftAnchor="-14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="55.0">
+        <VBox spacing="30" alignment="TOP_CENTER">
+            <padding>
+                <Insets top="40" right="40" bottom="40" left="40"/>
+            </padding>
 
-            <Text fill="white" styleClass="title-text" text="CREACIÓN DE PERSONAJE">
-                <font><Font size="48.0" /></font>
+            <Text text="CREACIÓN DE PERSONAJE" styleClass="title-text">
+                <font><Font size="48"/></font>
             </Text>
 
-            <HBox alignment="CENTER" spacing="40">
+            <HBox alignment="CENTER" spacing="40" maxWidth="1200">
+
                 <VBox alignment="TOP_CENTER" spacing="25">
+
                     <VBox alignment="CENTER" spacing="8">
-                        <Text styleClass="label-text" text="Campaña">
-                            <font><Font size="24.0" /></font>
-                        </Text>
-                        <HBox alignment="CENTER" spacing="10">
-                            <ComboBox fx:id="comboCampana" prefHeight="60.0" prefWidth="300" styleClass="input-field" />
-                            <Button onAction="#handlerNuevaCampana" prefHeight="60.0" prefWidth="40.0" styleClass="plus-button" text="+" />
+                        <Text text="Campaña" styleClass="label-text"><font><Font size="24"/></font></Text>
+                        <HBox spacing="10" alignment="CENTER">
+                            <ComboBox fx:id="comboCampana" prefHeight="60" prefWidth="300" styleClass="input-field"/>
+                            <Button prefHeight="60" prefWidth="40" text="+" onAction="#handlerNuevaCampana" styleClass="plus-button"/>
                         </HBox>
                     </VBox>
 
                     <VBox alignment="CENTER" spacing="8">
-                        <Text styleClass="label-text" text="Nombre del personaje">
-                            <font><Font size="24.0" /></font>
-                        </Text>
-                        <TextField fx:id="campoNombre" maxWidth="-Infinity" prefHeight="60.0" prefWidth="350.0" styleClass="input-field">
-                            <font><Font size="24.0" /></font>
-                        </TextField>
+                        <Text text="Nombre del personaje" styleClass="label-text"><font><Font size="24"/></font></Text>
+                        <TextField fx:id="campoNombre" prefHeight="60" prefWidth="350" styleClass="input-field"/>
                     </VBox>
 
                     <VBox alignment="CENTER" spacing="8">
-                        <Text styleClass="label-text" text="Escuela">
-                            <font><Font size="24.0" /></font>
-                        </Text>
-                        <ComboBox fx:id="comboEscuela" prefHeight="60.0" prefWidth="350.0" styleClass="input-field" />
+                        <Text text="Escuela" styleClass="label-text"><font><Font size="24"/></font></Text>
+                        <ComboBox fx:id="comboEscuela" prefHeight="60" prefWidth="350" styleClass="input-field"/>
                     </VBox>
+
                 </VBox>
 
-                <Region styleClass="separator-line" prefWidth="2.0" />
+                <Region prefWidth="2" styleClass="separator-line"/>
 
+                <VBox alignment="TOP_CENTER" spacing="25">
 
-                <VBox alignment="CENTER" spacing="25">
                     <VBox alignment="CENTER" spacing="8">
-                        <Text styleClass="label-text" text="Hechizo 1">
-                            <font><Font size="24.0" /></font>
-                        </Text>
-                        <ComboBox fx:id="comboSpell1" prefHeight="60.0" prefWidth="350.0" styleClass="input-field, gradient-border" />
-                    </VBox>
-                    
-                    <VBox alignment="CENTER" spacing="8">
-                        <Text styleClass="label-text" text="Hechizo 2">
-                            <font><Font size="24.0" /></font>
-                        </Text>
-                        <ComboBox fx:id="comboSpell2" prefHeight="60.0" prefWidth="350.0" styleClass="input-field, gradient-border" />
+                        <Text text="Hechizo 1" styleClass="label-text"><font><Font size="24"/></font></Text>
+                        <ComboBox fx:id="comboSpell1" prefHeight="60" prefWidth="350" styleClass="input-field"/>
                     </VBox>
 
-                    <Button onAction="#handlerIrACrearHechizo" prefHeight="50.0" prefWidth="250.0" styleClass="tertiary-button" text="Crear nuevo hechizo">
-                        <font>
-                            <Font size="18.0" />
-                        </font>
+                    <VBox alignment="CENTER" spacing="8">
+                        <Text text="Hechizo 2" styleClass="label-text"><font><Font size="24"/></font></Text>
+                        <ComboBox fx:id="comboSpell2" prefHeight="60" prefWidth="350" styleClass="input-field"/>
+                    </VBox>
+
+                    <Button text="Crear nuevo hechizo" prefHeight="50" prefWidth="250"
+                            onAction="#handlerIrACrearHechizo"
+                            styleClass="tertiary-button">
+                        <font><Font size="18"/></font>
                     </Button>
+
                 </VBox>
+
             </HBox>
 
-            <Button onAction="#handlerCrear" prefHeight="80.0" prefWidth="300.0" styleClass="primary-button" text="Crear personaje">
-                <font>
-                    <Font size="24.0" />
-                </font>
+            <Button text="Crear personaje" prefHeight="80" prefWidth="300"
+                    onAction="#handlerCrear" styleClass="primary-button">
+                <font><Font size="24"/></font>
             </Button>
 
-        </VBox>
+            <HBox alignment="CENTER" spacing="40">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
 
-        <AnchorPane prefHeight="80" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
-   
-            <HBox alignment="CENTER" layoutY="-98.0" prefHeight="178.0" prefWidth="1764.0" spacing="40" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-98.0">
-   
+                <Button text="Personajes guardados" prefHeight="80" prefWidth="300"
+                        onAction="#handlerPersonajesGuardados" styleClass="tertiary-button">
+                    <font><Font size="24"/></font>
+                </Button>
 
-                <Button prefHeight="80.0" onAction="#handlerPersonajesGuardados" prefWidth="300.0" text="Personajes guardados" styleClass="tertiary-button">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
+                <Button text="Cerrar sesión" prefHeight="80" prefWidth="300"
+                        onAction="#handlerCerrarSesion" styleClass="secondary-button">
+                    <font><Font size="24"/></font>
                 </Button>
-                <Button onAction="#handlerCerrarSesion" prefHeight="80.0" prefWidth="300.0" styleClass="secondary-button" text="Cerrar sesión">
-                    <font>
-                  <Font size="24.0" />
-               </font>
-                </Button>
-                
             </HBox>
 
-        </AnchorPane>
-
-    </children>
-
-</AnchorPane>
+        </VBox>
+    </content>
+</ScrollPane>

@@ -1,7 +1,7 @@
 .root-pane {
     -fx-font-family: 'Poppins', sans-serif;
     -fx-background-repeat: no-repeat;
-    -fx-background-size: cover;
+    -fx-background-size: stretch;
     -fx-background-position: center;
     -fx-background-color: linear-gradient(to bottom right,
             rgba(255, 255, 255, 0) 0%,
@@ -14,6 +14,10 @@
             rgba(253, 145, 78, 0.9) 100%);
 }
 
+.table-cell {
+    -fx-border-color: transparent;
+}
+
 .main-container {
     -fx-background-color: rgba(255, 255, 255, 0.75);
     -fx-padding: 40;
@@ -21,7 +25,6 @@
     -fx-border-radius: 12;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 32, 0, 0, 8);
     -fx-alignment: center;
-    -fx-max-width: 800;
 }
 
 .title-text {

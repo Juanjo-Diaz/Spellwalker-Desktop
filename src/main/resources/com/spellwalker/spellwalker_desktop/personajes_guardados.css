@@ -14,6 +14,10 @@
             rgba(253, 145, 78, 0.9) 100%);
 }
 
+.table-cell {
+    -fx-border-color: transparent;
+}
+
 .title-text {
     -fx-font-size: 30px;
     -fx-font-weight: bold;

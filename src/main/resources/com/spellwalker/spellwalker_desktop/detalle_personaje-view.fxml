@@ -28,7 +28,7 @@
                 <ComboBox fx:id="cbEscuelas" prefWidth="200" styleClass="input-field"/>
                 <Button text="Añadir Escuela" onAction="#handlerAnadirEscuela" styleClass="primary-button"/>
             </HBox>
-            <ListView fx:id="lvEscuelas" prefHeight="100"/>
+            <ListView fx:id="lvEscuelas" fixedCellSize="32.0" prefHeight="98.0" minHeight="98.0" maxHeight="98.0"/>
             <Button text="Eliminar Escuela Seleccionada" onAction="#handlerEliminarEscuela" styleClass="secondary-button"/>
         </VBox>
 
@@ -37,7 +37,7 @@
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <ComboBox fx:id="cbHechizos" prefWidth="200" styleClass="input-field"/>
                 <Button text="Añadir Hechizo" onAction="#handlerAnadirHechizo" styleClass="primary-button"/>
-                <Button onAction="#handlerIrACrearHechizo" styleClass="tertiary-button" text="Crear nuevo hechizo">
+                <Button onAction="#handlerIrACrearHechizo" styleClass="primary-button" text="Crear nuevo hechizo"/>
             </HBox>
             <TableView fx:id="tvHechizos" prefHeight="250">
                 <columns>

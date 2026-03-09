@@ -6,6 +6,7 @@ module com.spellwalker.spellwalker_desktop {
     requires java.sql;
     requires jakarta.mail;
     requires java.net.http;
+    requires java.desktop;
 
 
     opens com.spellwalker.spellwalker_desktop to javafx.fxml;

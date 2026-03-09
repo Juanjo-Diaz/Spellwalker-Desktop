@@ -1,26 +1,12 @@
 package com.spellwalker.spellwalker_desktop;
 
-import jakarta.mail.*;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Properties;
-import com.spellwalker.spellwalker_desktop.ConexionApi;
 
 public class RegistroController {
-
-    private static String mailDestinatario = "";
 
     @FXML
     private TextField campoUsuario;
@@ -44,82 +30,65 @@ public class RegistroController {
         String confirmar = campoConfirmar.getText();
         String email = campoEmail.getText();
         boolean recibeNotificaciones = checkNotificaciones.isSelected();
-        int boolNotificaciones;
+
         try {
-            if (usuario.isBlank() || contrasena.isBlank() || confirmar.isBlank() || email.isBlank()) {
-                Alert alertVacio = new Alert(Alert.AlertType.ERROR);
-                alertVacio.setTitle("Error");
-                alertVacio.setContentText("Uno o más campos están vacíos.");
-                alertVacio.showAndWait();
-            } else if (!confirmar.equals(contrasena)) {
-                Alert alertContrasena = new Alert(Alert.AlertType.ERROR);
-                alertContrasena.setTitle("Error");
-                alertContrasena.setContentText("Las contraseñas no coinciden.");
-                alertContrasena.showAndWait();
-            } else if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
-                Alert alertEmail = new Alert(Alert.AlertType.ERROR);
-                alertEmail.setTitle("Error");
-                alertEmail.setContentText("El email no es válido.");
-                alertEmail.showAndWait();
-            } else {
 
-                if (recibeNotificaciones) {
-                    boolNotificaciones = 1;
-                } else {
-                    boolNotificaciones = 0;
-                }
-                mailDestinatario = email;
+            if (usuario.isBlank() || contrasena.isBlank() ||
+                    confirmar.isBlank() || email.isBlank()) {
 
-                if (ConexionApi.mailExiste(email)) {
-                    Alert alertRepetido = new Alert(Alert.AlertType.ERROR);
-                    alertRepetido.setTitle("Error");
-                    alertRepetido.setContentText("El email " + email + " ya está registrado.");
-                    alertRepetido.showAndWait();
-                } else if (ConexionApi.usuarioExiste(usuario)) {
-                    Alert alertRepetido = new Alert(Alert.AlertType.ERROR);
-                    alertRepetido.setTitle("Error");
-                    alertRepetido.setContentText("El nombre de usuario " + usuario + " ya existe.");
-                    alertRepetido.showAndWait();
-                } else {
-                    ConexionApi.registerPerfil(usuario, contrasena, email);
-
-                    Alert alertSucc = new javafx.scene.control.Alert(
-                            Alert.AlertType.INFORMATION);
-                    alertSucc.setTitle("Registro Completado");
-                    alertSucc.setHeaderText(null);
-                    alertSucc.setContentText("Usuario registrado correctamente");
-                    alertSucc.showAndWait();
-                    handlerLogin(event);
-                }
+                mostrarError("Uno o más campos están vacíos.");
+                return;
             }
 
-        } catch (Exception e) {
-            Alert alert = new javafx.scene.control.Alert(
-                    Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Ha ocurrido un error, código: " + e.getMessage());
-            alert.showAndWait();
-        }
+            if (!confirmar.equals(contrasena)) {
+                mostrarError("Las contraseñas no coinciden.");
+                return;
+            }
 
+            if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+                mostrarError("El email no es válido.");
+                return;
+            }
+
+            if (ConexionApi.mailExiste(email)) {
+                mostrarError("El email " + email + " ya está registrado.");
+                return;
+            }
+
+            if (ConexionApi.usuarioExiste(usuario)) {
+                mostrarError("El nombre de usuario " + usuario + " ya existe.");
+                return;
+            }
+
+            ConexionApi.registerPerfil(usuario, contrasena, email);
+
+            mostrarExito("Usuario registrado correctamente.");
+
+            SceneManager.switchTo("/com/spellwalker/spellwalker_desktop/login-view.fxml");
+
+        } catch (Exception e) {
+            mostrarError("Ha ocurrido un error: " + e.getMessage());
+        }
     }
 
     @FXML
     public void handlerLogin(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/com/spellwalker/spellwalker_desktop/login-view.fxml"));
-            Scene scene = new Scene(loader.load());
+        SceneManager.switchTo("/com/spellwalker/spellwalker_desktop/login-view.fxml");
+    }
 
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setMaximized(true);
-            stage.show();
+    private void mostrarError(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
 
-            Stage stage1 = (Stage) campoUsuario.getScene().getWindow();
-            stage1.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void mostrarExito(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Éxito");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 }

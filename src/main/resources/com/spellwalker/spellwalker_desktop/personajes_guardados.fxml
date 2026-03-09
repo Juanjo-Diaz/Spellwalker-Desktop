@@ -4,9 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<?import javafx.scene.text.Font?>
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.spellwalker.spellwalker_desktop.PersonajesGuardadosController"
             stylesheets="@personajes_guardados.css">
 
@@ -16,7 +14,7 @@
         </HBox>
     </top>
     <center>
-        <TableView fx:id="tablaPersonajes" prefHeight="500" prefWidth="900" styleClass="main-table">
+        <TableView fx:id="tablaPersonajes" prefHeight="500" prefWidth="900" styleClass="table-view">
             <columns>
 
                 <TableColumn fx:id="colNombre" text="Personaje" prefWidth="200"/>

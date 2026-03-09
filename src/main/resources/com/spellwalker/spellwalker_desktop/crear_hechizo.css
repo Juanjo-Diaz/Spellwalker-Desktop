@@ -1,7 +1,7 @@
 .root-pane {
     -fx-font-family: 'Poppins', sans-serif;
     -fx-background-repeat: no-repeat;
-    -fx-background-size: cover;
+    -fx-background-size: stretch;
     -fx-background-position: center;
     -fx-background-color: linear-gradient(to bottom right,
             rgba(255, 255, 255, 0) 0%,

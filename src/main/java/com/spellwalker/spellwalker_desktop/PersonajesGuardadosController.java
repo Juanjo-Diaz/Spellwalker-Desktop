@@ -2,13 +2,10 @@ package com.spellwalker.spellwalker_desktop;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.List;
@@ -53,21 +50,19 @@ public class PersonajesGuardadosController implements Initializable {
             List<PersonajesId> personajesId = ConexionApi.obtenerPersonajesDeUsuario(usuario);
 
             System.out.println("PERSONAJES ENCONTRADOS = " + personajesId.size());
-            for (PersonajesId p : personajesId) {
-                System.out.println(" - " + p.getId() + " | " + p.getNombre() + " | " + p.getIdCampana());
-            }
+
             for (PersonajesId p : personajesId) {
 
-                String nombreCampana = ConexionApi.obtenerNombreCampanaPorId(
-                        Integer.parseInt(p.getIdCampana()));
+                String nombreCampana =
+                        ConexionApi.obtenerNombreCampanaPorId(Integer.parseInt(p.getIdCampana()));
 
-                List<String> escuelas = ConexionApi.obtenerEscuelasDePersonaje(
-                        Integer.parseInt(p.getId()));
-                String nombreEscuela = String.join(", ", escuelas);
+                String nombreEscuela = String.join(", ",
+                        ConexionApi.obtenerEscuelasDePersonaje(Integer.parseInt(p.getId()))
+                );
 
-                List<String> spells = ConexionApi.obtenerSpellsDePersonaje(
-                        Integer.parseInt(p.getId()));
-                String spellsTexto = String.join(", ", spells);
+                String spellsTexto = String.join(", ",
+                        ConexionApi.obtenerSpellsDePersonaje(Integer.parseInt(p.getId()))
+                );
 
                 tablaPersonajes.getItems().add(
                         new Personaje(
@@ -76,11 +71,15 @@ public class PersonajesGuardadosController implements Initializable {
                                 nombreCampana,
                                 nombreEscuela,
                                 spellsTexto,
-                                p.getDescripcion()));
+                                p.getDescripcion()
+                        )
+                );
             }
 
             tablaPersonajes.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && tablaPersonajes.getSelectionModel().getSelectedItem() != null) {
+                if (event.getClickCount() == 2 &&
+                        tablaPersonajes.getSelectionModel().getSelectedItem() != null) {
+
                     Personaje seleccionado = tablaPersonajes.getSelectionModel().getSelectedItem();
                     abrirDetallePersonaje(seleccionado);
                 }
@@ -92,42 +91,15 @@ public class PersonajesGuardadosController implements Initializable {
     }
 
     private void abrirDetallePersonaje(Personaje personaje) {
-        try {
-            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/com/spellwalker/spellwalker_desktop/detalle_personaje-view.fxml"));
-            Scene scene = new Scene(loader.load());
 
-            DetallePersonajeController controller = loader.getController();
-            controller.setPersonaje(personaje);
+        DetallePersonajeController controller =
+                SceneManager.switchTo("/com/spellwalker/spellwalker_desktop/detalle_personaje-view.fxml", true);
 
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setMaximized(true);
-            MainApp.configurarStage(stage);
-            stage.setTitle("Detalle de Personaje: " + personaje.getNombrePersonaje());
-            stage.show();
-
-            Stage currentStage = (Stage) tablaPersonajes.getScene().getWindow();
-            currentStage.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        controller.setPersonaje(personaje);
     }
 
+    @FXML
     public void handlerVolver(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/com/spellwalker/spellwalker_desktop/crear_personaje-view.fxml"));
-            Scene scene = new Scene(loader.load());
-
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setMaximized(true);
-            MainApp.configurarStage(stage);
-            stage.show();
-
-            Stage currentStage = (Stage) tablaPersonajes.getScene().getWindow();
-            currentStage.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        SceneManager.goBack();
     }
 }

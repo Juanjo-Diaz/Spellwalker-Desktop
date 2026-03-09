@@ -17,12 +17,10 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("/com/spellwalker/spellwalker_desktop/login-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setScene(scene);
+        SceneManager.init(stage);
+        SceneManager.switchTo("/com/spellwalker/spellwalker_desktop/login-view.fxml");
         stage.setMaximized(true);
-        configurarStage(stage);
+        MainApp.configurarStage(stage);
         stage.setTitle("SpellWalker");
         stage.show();
     }
