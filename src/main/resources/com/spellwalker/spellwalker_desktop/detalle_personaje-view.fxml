@@ -37,6 +37,7 @@
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <ComboBox fx:id="cbHechizos" prefWidth="200" styleClass="input-field"/>
                 <Button text="Añadir Hechizo" onAction="#handlerAnadirHechizo" styleClass="primary-button"/>
+                <Button onAction="#handlerIrACrearHechizo" styleClass="tertiary-button" text="Crear nuevo hechizo">
             </HBox>
             <TableView fx:id="tvHechizos" prefHeight="250">
                 <columns>
