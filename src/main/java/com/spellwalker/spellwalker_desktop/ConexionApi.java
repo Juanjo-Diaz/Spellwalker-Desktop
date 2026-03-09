@@ -5,7 +5,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -938,24 +937,93 @@ public class ConexionApi {
     postToTurso(payload);
   }
 
-  public static boolean crearNuevaCampana(String nombre) throws IOException {
+  public static boolean crearNuevaCampana(String nombre, String descripcion, String usuarioCreador) throws IOException {
     String payload = """
         {
           "requests": [
             {
               "type": "execute",
               "stmt": {
-                "sql": "INSERT INTO CAMPANA (NOMBRE) VALUES (?)",
+                "sql": "INSERT INTO CAMPANA (NOMBRE, DESCRIPCION) VALUES (?, ?)",
+                "args": [{"type": "text", "value": "%s"}, {"type": "text", "value": "%s"}]
+              }
+            },
+            { "type": "close" }
+          ]
+        }
+        """.formatted(nombre, descripcion);
+
+    String resp = postToTurso(payload);
+
+    if (resp.contains("\"affected_row_count\":1")) {
+      int idCampana = obtenerIdCampanaPorNombre(nombre);
+      if (idCampana != -1) {
+        return vincularPerfilCampana(usuarioCreador, idCampana);
+      }
+    }
+    return false;
+  }
+
+  public static boolean vincularPerfilCampana(String usuario, int idCampana) throws IOException {
+    String payload = """
+        {
+          "requests": [
+            {
+              "type": "execute",
+              "stmt": {
+                "sql": "INSERT INTO PERFIL_CAMPANA (ID_CAMPANA, NOMBRE_USUARIO) VALUES (?, ?)",
+                "args": [{"type": "integer", "value": "%d"}, {"type": "text", "value": "%s"}]
+              }
+            },
+            { "type": "close" }
+          ]
+        }
+        """.formatted(idCampana, usuario);
+
+    String resp = postToTurso(payload);
+    return resp.contains("\"affected_row_count\":1");
+  }
+
+  public static List<Campana> obtenerCampanasDeUsuarioObjeto(String usuario) throws IOException {
+    String payload = """
+        {
+          "requests": [
+            {
+              "type": "execute",
+              "stmt": {
+                "sql": "SELECT C.ID_CAMPANA, C.NOMBRE, C.DESCRIPCION FROM CAMPANA C JOIN PERFIL_CAMPANA PC ON C.ID_CAMPANA = PC.ID_CAMPANA WHERE PC.NOMBRE_USUARIO = ?",
                 "args": [{"type": "text", "value": "%s"}]
               }
             },
             { "type": "close" }
           ]
         }
-        """.formatted(nombre);
+        """
+        .formatted(usuario);
 
     String resp = postToTurso(payload);
-    return resp.contains("\"affected_row_count\":1");
+    List<Campana> campanas = new ArrayList<>();
+    List<List<String>> rows = extractAllRows(resp);
+    for (List<String> row : rows) {
+      if (row.size() >= 2) {
+        int id = parseSafeInt(row.get(0), -1);
+        String nombre = row.get(1);
+        String descripcion = (row.size() >= 3 && row.get(2) != null) ? row.get(2) : "";
+        if (id != -1) {
+          campanas.add(new Campana(id, nombre, descripcion));
+        }
+      }
+    }
+    return campanas;
+  }
+
+  public static List<String> obtenerCampanasDeUsuarioStr(String usuario) throws IOException {
+    List<Campana> campanas = obtenerCampanasDeUsuarioObjeto(usuario);
+    List<String> nombres = new ArrayList<>();
+    for (Campana c : campanas) {
+      nombres.add(c.getNombre());
+    }
+    return nombres;
   }
 
   public static List<Hechizo> obtenerHechizosDePersonaje(int idPersonaje) throws IOException {

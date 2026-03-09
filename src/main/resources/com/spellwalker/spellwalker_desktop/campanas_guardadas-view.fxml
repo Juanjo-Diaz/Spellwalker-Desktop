@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.spellwalker.spellwalker_desktop.CampanasGuardadasController"
+            stylesheets="@campanas_guardadas.css"
+            styleClass="root">
+
+    <top>
+        <HBox alignment="CENTER">
+            <Label text="Mis Campañas" styleClass="title-text"/>
+        </HBox>
+    </top>
+    
+    <center>
+        <TableView fx:id="tablaCampanas" prefHeight="400" prefWidth="900" styleClass="table-view">
+            <columns>
+                <TableColumn fx:id="colNombre" text="Nombre" prefWidth="300"/>
+                <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="600"/>
+            </columns>
+        </TableView>
+    </center>
+    
+    <bottom>
+        <VBox alignment="CENTER" spacing="20">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <VBox alignment="CENTER" spacing="20" styleClass="control-panel" maxWidth="700">
+                <HBox alignment="CENTER" spacing="15">
+                    <Text text="Invitar a:" styleClass="label-text">
+                        <font><Font size="20.0"/></font>
+                    </Text>
+                    <TextField fx:id="campoUsuario" prefWidth="250" prefHeight="40" promptText="Nombre de usuario" styleClass="input-field"/>
+                    <Button styleClass="tertiary-button" onAction="#handlerInvitar" text="Añadir a campaña seleccionada"/>
+                </HBox>
+
+                <Button styleClass="primary-button" onAction="#handlerVolver" prefHeight="60.0" prefWidth="300.0" text="Volver"/>
+            </VBox>
+        </VBox>
+    </bottom>
+
+</BorderPane>

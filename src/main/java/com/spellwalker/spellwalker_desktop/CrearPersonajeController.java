@@ -12,17 +12,23 @@ import java.util.ResourceBundle;
 
 public class CrearPersonajeController implements Initializable {
 
-    @FXML private TextField campoNombre;
-    @FXML private ComboBox<String> comboCampana;
-    @FXML private ComboBox<String> comboEscuela;
-    @FXML private ComboBox<String> comboSpell1;
-    @FXML private ComboBox<String> comboSpell2;
+    @FXML
+    private TextField campoNombre;
+    @FXML
+    private ComboBox<String> comboCampana;
+    @FXML
+    private ComboBox<String> comboEscuela;
+    @FXML
+    private ComboBox<String> comboSpell1;
+    @FXML
+    private ComboBox<String> comboSpell2;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
             comboEscuela.getItems().addAll(ConexionApi.obtenerTodasLasEscuelas());
-            comboCampana.getItems().addAll(ConexionApi.obtenerTodasLasCampanas());
+            String currentUser = (String) MainApp.usuario.get("usuario");
+            comboCampana.getItems().addAll(ConexionApi.obtenerCampanasDeUsuarioStr(currentUser));
 
             List<String> hechizos = ConexionApi.obtenerTodosNombresHechizos();
             comboSpell1.getItems().addAll(hechizos);
@@ -32,31 +38,15 @@ public class CrearPersonajeController implements Initializable {
             System.out.println(e.getMessage());
         }
     }
+
     @FXML
     public void handlerNuevaCampana(ActionEvent event) {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Nueva Campaña");
-        dialog.setHeaderText("Crear una nueva campaña");
-        dialog.setContentText("Nombre de la campaña:");
+        SceneManager.switchTo("/com/spellwalker/spellwalker_desktop/crear_campana-view.fxml", true);
+    }
 
-        Optional<String> result = dialog.showAndWait();
-
-        result.ifPresent(nombre -> {
-            if (!nombre.isBlank()) {
-                try {
-                    boolean creada = ConexionApi.crearNuevaCampana(nombre);
-                    if (creada) {
-                        comboCampana.getItems().setAll(ConexionApi.obtenerTodasLasCampanas());
-                        comboCampana.getSelectionModel().select(nombre);
-                    } else {
-                        mostrarError("No se pudo crear la campaña. Quizás ya existe.");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        );
+    @FXML
+    public void handlerCampanasGuardadas(ActionEvent event) {
+        SceneManager.switchTo("/com/spellwalker/spellwalker_desktop/campanas_guardadas-view.fxml", true);
     }
 
     @FXML
@@ -78,8 +68,7 @@ public class CrearPersonajeController implements Initializable {
         String usuarioActual = (String) MainApp.usuario.get("usuario");
 
         boolean creado = ConexionApi.crearPersonajeConNombreYCampana(
-                nombrePersonaje, nombreCampana, usuarioActual
-        );
+                nombrePersonaje, nombreCampana, usuarioActual);
 
         if (!creado) {
             mostrarError("No se pudo crear el personaje.");

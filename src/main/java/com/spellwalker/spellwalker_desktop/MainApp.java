@@ -1,7 +1,6 @@
 package com.spellwalker.spellwalker_desktop;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -31,7 +30,8 @@ public class MainApp extends Application {
 
         stage.getIcons().clear();
         stage.getIcons()
-                .add(new Image(MainApp.class.getResourceAsStream("/com/spellwalker/spellwalker_desktop/spellwalker_title.ico")));
+                .add(new Image(MainApp.class
+                        .getResourceAsStream("/com/spellwalker/spellwalker_desktop/spellwalker_title.ico")));
 
         if (stage.getScene() != null) {
             agregarManejadorF11(stage, stage.getScene());

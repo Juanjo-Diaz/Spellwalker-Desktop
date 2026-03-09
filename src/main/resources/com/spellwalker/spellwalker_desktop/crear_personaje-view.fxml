@@ -76,19 +76,24 @@
                 <font><Font size="24"/></font>
             </Button>
 
-            <HBox alignment="CENTER" spacing="40">
+            <HBox alignment="CENTER" spacing="20">
                 <padding>
-                    <Insets top="20" right="20" bottom="20" left="20"/>
+                    <Insets top="10" right="20" bottom="10" left="20"/>
                 </padding>
 
-                <Button text="Personajes guardados" prefHeight="80" prefWidth="300"
-                        onAction="#handlerPersonajesGuardados" styleClass="tertiary-button">
-                    <font><Font size="24"/></font>
+                <Button text="Campañas guardadas" prefHeight="60" prefWidth="250"
+                        onAction="#handlerCampanasGuardadas" styleClass="tertiary-button">
+                    <font><Font size="20"/></font>
                 </Button>
 
-                <Button text="Cerrar sesión" prefHeight="80" prefWidth="300"
+                <Button text="Personajes guardados" prefHeight="60" prefWidth="250"
+                        onAction="#handlerPersonajesGuardados" styleClass="tertiary-button">
+                    <font><Font size="20"/></font>
+                </Button>
+
+                <Button text="Cerrar sesión" prefHeight="60" prefWidth="250"
                         onAction="#handlerCerrarSesion" styleClass="secondary-button">
-                    <font><Font size="24"/></font>
+                    <font><Font size="20"/></font>
                 </Button>
             </HBox>
 

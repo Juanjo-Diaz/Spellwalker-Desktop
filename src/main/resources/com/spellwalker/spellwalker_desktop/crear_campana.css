@@ -1,5 +1,8 @@
 .root-pane {
     -fx-font-family: 'Poppins', sans-serif;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: stretch;
+    -fx-background-position: center;
     -fx-background-color: linear-gradient(to bottom right,
             rgba(255, 255, 255, 0) 0%,
             rgba(255, 255, 255, 0) 60%,
@@ -9,10 +12,6 @@
             rgba(114, 185, 245, 0.9) 85%,
             rgba(176, 0, 167, 0.9) 95%,
             rgba(253, 145, 78, 0.9) 100%);
-}
-
-.root-pane>.viewport {
-    -fx-background-color: transparent;
 }
 
 .table-cell {
@@ -57,6 +56,27 @@
     -fx-effect: dropshadow(gaussian, rgba(114, 185, 245, 0.3), 8, 0.2, 0, 0);
 }
 
+
+.text-area {
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-font-size: 16px;
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-border-width: 1px;
+}
+
+.text-area:focused {
+    -fx-border-color: #72b9f5;
+    -fx-effect: dropshadow(gaussian, rgba(114, 185, 245, 0.3), 8, 0.2, 0, 0);
+}
+
+.text-area .content {
+    -fx-background-color: white;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
 
 .input-field .list-cell {
     -fx-background-color: white;
