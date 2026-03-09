@@ -106,6 +106,18 @@ public class DetallePersonajeController implements Initializable {
             }
         }
     }
+    @FXML
+    public void handlerIrACrearHechizo(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/com/spellwalker/spellwalker_desktop/crear_hechizo-view.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            Stage stage = (Stage) campoNombre.getScene().getWindow();
+            stage.setScene(scene);
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     public void handlerEliminarEscuela(ActionEvent event) {
