@@ -7,7 +7,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +14,7 @@ public class MainApp extends Application {
     public static Map<String, Object> usuario = new HashMap<>();
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         SceneManager.init(stage);
         SceneManager.switchTo("/com/spellwalker/spellwalker_desktop/login-view.fxml");
         stage.setMaximized(true);

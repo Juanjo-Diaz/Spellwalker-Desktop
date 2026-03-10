@@ -67,7 +67,6 @@ public class CampanasGuardadasController implements Initializable {
                 return;
             }
 
-            // Invitar = vincular
             boolean vinculado = ConexionApi.vincularPerfilCampana(username, campanaSeleccionada.getIdCampana());
             if (vinculado) {
                 mostrarInfo("El usuario " + username + " fue añadido a la campaña '" + campanaSeleccionada.getNombre()

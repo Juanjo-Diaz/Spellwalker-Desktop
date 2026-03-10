@@ -9,9 +9,7 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-
 public class ConexionApi {
-
   private static final String PROXY_URL = "https://backendspellwalker.onrender.com/api/query";
 
   public static String postToTurso(String jsonPayload) throws IOException {
@@ -58,7 +56,6 @@ public class ConexionApi {
       String resp = postToTurso(payload);
       System.out.println("Resultado de inicializar base de datos: " + resp);
     } catch (Exception e) {
-      // Ignoramos si la columna ya existe
       System.out.println("La columna DESCRIPCION probablemente ya existe o hubo un error: " + e.getMessage());
     }
   }
@@ -126,7 +123,7 @@ public class ConexionApi {
                 "type": "execute",
                 "stmt": {
                   "sql": "SELECT NOMBRE_USUARIO FROM PERFIL WHERE NOMBRE_USUARIO = ?",
-                  "args": ["%s"]
+                  "args": [{"type": "text", "value": "%s"}]
                 }
               },
               { "type": "close" }
@@ -139,34 +136,7 @@ public class ConexionApi {
       return resp.contains("\"rows\":[[");
 
     } catch (Exception e) {
-      e.printStackTrace();
-      return false;
-    }
-  }
-
-  public static boolean contrasenaExiste(String password) {
-    try {
-      String payload = """
-          {
-            "requests": [
-              {
-                "type": "execute",
-                "stmt": {
-                  "sql": "SELECT CONTRASENYA FROM PERFIL WHERE CONTRASENYA = ?",
-                  "args": ["%s"]
-                }
-              },
-              { "type": "close" }
-            ]
-          }
-          """.formatted(password);
-
-      String resp = postToTurso(payload);
-
-      return resp.contains("\"rows\":[[");
-
-    } catch (Exception e) {
-      e.printStackTrace();
+      System.out.println(e.getMessage());
       return false;
     }
   }
@@ -180,7 +150,7 @@ public class ConexionApi {
                 "type": "execute",
                 "stmt": {
                   "sql": "SELECT MAIL FROM PERFIL WHERE MAIL = ?",
-                  "args": ["%s"]
+                  "args": [{"type": "text", "value": "%s"}]
                 }
               },
               { "type": "close" }
@@ -193,21 +163,19 @@ public class ConexionApi {
       return resp.contains("\"rows\":[[");
 
     } catch (Exception e) {
-      e.printStackTrace();
+      System.out.println(e.getMessage());
       return false;
     }
   }
 
-  public static boolean registerPerfil(String username, String password, String mail) {
+  public static void registerPerfil(String username, String password, String mail) {
     try {
       if (usuarioExiste(username)) {
         System.out.println("El usuario ya existe");
-        return false;
       }
 
       if (mailExiste(mail)) {
         System.out.println("El correo ya está registrado");
-        return false;
       }
 
       String hash = generarHash(username, password);
@@ -237,37 +205,13 @@ public class ConexionApi {
 
       if (resp.contains("error")) {
         System.out.println("Error al registrar usuario: " + resp);
-        return false;
       }
 
       System.out.println("Usuario registrado correctamente");
-      return true;
 
     } catch (Exception e) {
-      e.printStackTrace();
-      return false;
+      System.out.println(e.getMessage());
     }
-  }
-
-  public static int obtenersiguienteIdCampana() throws IOException {
-
-    String payload = """
-        {
-          "requests": [
-            {
-              "type": "execute",
-              "stmt": {
-                "sql": "SELECT MAX(ID_CAMPANA) + 1 FROM CAMPANA"
-              }
-            },
-            { "type": "close" }
-          ]
-        }
-        """;
-
-    String resp = postToTurso(payload);
-
-    return extraerNumero(resp);
   }
 
   public static int extraerNumero(String json) {
@@ -384,13 +328,13 @@ public class ConexionApi {
               "type": "execute",
               "stmt": {
                 "sql": "INSERT INTO PERSONAJE_SPELLS (ID_SPELL, ID_PERS) VALUES (?, ?)",
-                "args": [{"type": "integer", "value": "%s"}, {"type": "integer", "value": "%s"}]
+                "args": [{"type": "integer", "value": "%d"}, {"type": "integer", "value": "%d"}]
               }
             },
             { "type": "close" }
           ]
         }
-        """.formatted(String.valueOf(idSpell), String.valueOf(idPersonaje));
+        """.formatted(idSpell, idPersonaje);
 
     String resp = postToTurso(payload);
     System.out.println("INSERT SPELL RESP: " + resp);
@@ -458,7 +402,7 @@ public class ConexionApi {
       return true;
 
     } catch (Exception e) {
-      e.printStackTrace();
+      System.out.println(e.getMessage());
       return false;
     }
   }
@@ -490,7 +434,7 @@ public class ConexionApi {
       return resp.contains("\"rows\":[[");
 
     } catch (Exception e) {
-      e.printStackTrace();
+      System.out.println(e.getMessage());
       return false;
     }
   }
@@ -515,25 +459,6 @@ public class ConexionApi {
     String resp = postToTurso(payload);
 
     return extraerNumero(resp);
-  }
-
-  public static List<String> obtenerTodasLasCampanas() throws IOException {
-    String payload = """
-        {
-          "requests": [
-            {
-              "type": "execute",
-              "stmt": {
-                "sql": "SELECT NOMBRE FROM CAMPANA"
-              }
-            },
-            { "type": "close" }
-          ]
-        }
-        """;
-
-    String resp = postToTurso(payload);
-    return extraerNombresDeJson(resp);
   }
 
   public static java.util.List<String> obtenerTodasLasEscuelas() throws IOException {
@@ -576,7 +501,7 @@ public class ConexionApi {
         }
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      System.out.println(e.getMessage());
     }
     return nombres;
   }
@@ -698,27 +623,6 @@ public class ConexionApi {
     return spells;
   }
 
-  public static int obtenerIdEscuelaDePersonaje(int idPersonaje) throws IOException {
-
-    String payload = """
-        {
-          "requests": [
-            {
-              "type": "execute",
-              "stmt": {
-                "sql": "SELECT ID_ESCUELA FROM PERSONAJE_ESCUELAS WHERE ID_PERSONAJE = ?",
-                "args": [{"type": "integer", "value": "%d"}]
-              }
-            },
-            { "type": "close" }
-          ]
-        }
-        """.formatted(idPersonaje);
-
-    String resp = postToTurso(payload);
-
-    return extraerNumero(resp);
-  }
 
   public static List<String> obtenerTodosNombresHechizos() throws IOException {
     String payload = """
@@ -737,31 +641,6 @@ public class ConexionApi {
 
     String resp = postToTurso(payload);
     return extraerNombresDeJson(resp);
-  }
-
-  public static String obtenerNombreEscuelaPorId(int idEscuela) throws IOException {
-
-    String payload = """
-        {
-          "requests": [
-            {
-              "type": "execute",
-              "stmt": {
-                "sql": "SELECT NOMBRE FROM ESCUELAS WHERE ID_ESCUELAS = ?",
-                "args": [{"type": "integer", "value": "%d"}]
-              }
-            },
-            { "type": "close" }
-          ]
-        }
-        """.formatted(idEscuela);
-
-    String resp = postToTurso(payload);
-
-    int start = resp.indexOf("\"value\":\"") + 9;
-    int end = resp.indexOf("\"", start);
-
-    return resp.substring(start, end);
   }
 
   public static List<String> obtenerEscuelasDePersonaje(int idPersonaje) throws IOException {
@@ -853,26 +732,6 @@ public class ConexionApi {
         """.formatted(idPersonaje, idEscuela);
 
     postToTurso(payload);
-  }
-
-  public static int obtenerIdHechizoPorNombre(String nombre) throws IOException {
-    String payload = """
-        {
-          "requests": [
-            {
-              "type": "execute",
-              "stmt": {
-                "sql": "SELECT ID_SPELL FROM SPELLS WHERE NOMBRE = ?",
-                "args": [{"type": "text", "value": "%s"}]
-              }
-            },
-            { "type": "close" }
-          ]
-        }
-        """.formatted(nombre);
-
-    String resp = postToTurso(payload);
-    return extraerNumero(resp);
   }
 
   public static void vincularHechizoAPersonaje(int idPersonaje, int idHechizo) throws IOException {
@@ -1042,7 +901,7 @@ public class ConexionApi {
 
     String resp = postToTurso(payload);
     List<Hechizo> lista = extraerHechizosDeJson(resp);
-    return lista.isEmpty() ? null : lista.get(0);
+    return lista.isEmpty() ? null : lista.getFirst();
   }
 
   private static List<Hechizo> extraerHechizosDeJson(String json) {
@@ -1112,7 +971,7 @@ public class ConexionApi {
     try {
       debugPersonajes();
     } catch (Exception e) {
-      e.printStackTrace();
+      System.out.println(e.getMessage());
     }
   }
 
@@ -1200,5 +1059,4 @@ public class ConexionApi {
     }
     return values;
   }
-
 }
