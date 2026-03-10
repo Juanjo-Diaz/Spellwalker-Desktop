@@ -19,7 +19,7 @@
 }
 
 #tabla {
-    -fx-background-color: rgba(255, 255, 255, 0.75);
+    -fx-background-color: rgba(245, 245, 245, 0.75);
     -fx-padding: 40;
     -fx-background-radius: 12;
     -fx-border-radius: 12;
@@ -46,7 +46,6 @@
 .tex {
     -fx-fill: #555;
     -fx-font-size: 14px;
-    /* Adjusted to look better */
     -fx-font-weight: bold;
 }
 

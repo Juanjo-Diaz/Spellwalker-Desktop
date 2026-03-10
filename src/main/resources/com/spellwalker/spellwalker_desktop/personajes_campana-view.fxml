@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.spellwalker.spellwalker_desktop.PersonajesCampanaController"
+            stylesheets="@personajes_guardados.css">
+
+    <top>
+        <HBox alignment="CENTER">
+            <Label fx:id="lblTitulo" text="Personajes de la Campaña" styleClass="title-text"/>
+        </HBox>
+    </top>
+    <center>
+        <TableView fx:id="tablaPersonajes" prefHeight="500" prefWidth="900" styleClass="table-view">
+            <columns>
+                <TableColumn fx:id="colNombre" text="Personaje" prefWidth="200"/>
+                <TableColumn fx:id="colCreador" text="Creador" prefWidth="150"/>
+                <TableColumn fx:id="colCampana" text="Campaña" prefWidth="150"/>
+                <TableColumn fx:id="colEscuela" text="Escuelas (máx 3)" prefWidth="200"/>
+                <TableColumn fx:id="colSpells" text="Hechizos" prefWidth="250"/>
+                <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="250"/>
+            </columns>
+        </TableView>
+    </center>
+    <bottom>
+        <HBox alignment="center" spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <Button styleClass="primary-button" onAction="#handlerVolver" prefHeight="80.0" prefWidth="300.0" text="Volver">
+            </Button>
+        </HBox>
+    </bottom>
+
+</BorderPane>

@@ -31,6 +31,19 @@ public class CampanasGuardadasController implements Initializable {
         colDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
 
         cargarCampanas();
+        configurarDobleClick();
+    }
+
+    private void configurarDobleClick() {
+        tablaCampanas.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2 && tablaCampanas.getSelectionModel().getSelectedItem() != null) {
+                Campana seleccionada = tablaCampanas.getSelectionModel().getSelectedItem();
+                PersonajesCampanaController controller = SceneManager.switchTo("/com/spellwalker/spellwalker_desktop/personajes_campana-view.fxml", true);
+                if (controller != null) {
+                    controller.setCampana(seleccionada);
+                }
+            }
+        });
     }
 
     private void cargarCampanas() {

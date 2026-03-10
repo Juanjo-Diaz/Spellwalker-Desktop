@@ -1,8 +1,11 @@
 package com.spellwalker.spellwalker_desktop;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -11,13 +14,19 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class PersonajesGuardadosController implements Initializable {
+public class PersonajesCampanaController implements Initializable {
+
+    @FXML
+    private Label lblTitulo;
 
     @FXML
     private TableView<Personaje> tablaPersonajes;
 
     @FXML
     private TableColumn<Personaje, String> colNombre;
+
+    @FXML
+    private TableColumn<Personaje, String> colCreador;
 
     @FXML
     private TableColumn<Personaje, String> colCampana;
@@ -31,31 +40,31 @@ public class PersonajesGuardadosController implements Initializable {
     @FXML
     private TableColumn<Personaje, String> colDescripcion;
 
+    private Campana campana;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombrePersonaje"));
+        colCreador.setCellValueFactory(new PropertyValueFactory<>("creador"));
         colCampana.setCellValueFactory(new PropertyValueFactory<>("nombreCampana"));
         colEscuela.setCellValueFactory(new PropertyValueFactory<>("escuela"));
         colSpells.setCellValueFactory(new PropertyValueFactory<>("spells"));
         colDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+    }
 
-        cargarPersonajes();
+    public void setCampana(Campana campana) {
+        this.campana = campana;
+        if (campana != null) {
+            lblTitulo.setText("Personajes de la Campaña: " + campana.getNombre());
+            cargarPersonajes();
+        }
     }
 
     private void cargarPersonajes() {
-        String usuario = (String) MainApp.usuario.get("usuario");
-
         try {
-            List<PersonajesId> personajesId = ConexionApi.obtenerPersonajesDeUsuario(usuario);
-
-            System.out.println("PERSONAJES ENCONTRADOS = " + personajesId.size());
+            List<PersonajesId> personajesId = ConexionApi.obtenerPersonajesDeCampana(campana.getIdCampana());
 
             for (PersonajesId p : personajesId) {
-
-                String nombreCampana =
-                        ConexionApi.obtenerNombreCampanaPorId(Integer.parseInt(p.getIdCampana()));
-
                 String nombreEscuela = String.join(", ",
                         ConexionApi.obtenerEscuelasDePersonaje(Integer.parseInt(p.getId()))
                 );
@@ -68,7 +77,7 @@ public class PersonajesGuardadosController implements Initializable {
                         new Personaje(
                                 Integer.parseInt(p.getId()),
                                 p.getNombre(),
-                                nombreCampana,
+                                campana.getNombre(),
                                 nombreEscuela,
                                 spellsTexto,
                                 p.getDescripcion(),
@@ -76,27 +85,9 @@ public class PersonajesGuardadosController implements Initializable {
                         )
                 );
             }
-
-            tablaPersonajes.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 &&
-                        tablaPersonajes.getSelectionModel().getSelectedItem() != null) {
-
-                    Personaje seleccionado = tablaPersonajes.getSelectionModel().getSelectedItem();
-                    abrirDetallePersonaje(seleccionado);
-                }
-            });
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void abrirDetallePersonaje(Personaje personaje) {
-
-        DetallePersonajeController controller =
-                SceneManager.switchTo("/com/spellwalker/spellwalker_desktop/detalle_personaje-view.fxml", true);
-
-        controller.setPersonaje(personaje);
     }
 
     @FXML

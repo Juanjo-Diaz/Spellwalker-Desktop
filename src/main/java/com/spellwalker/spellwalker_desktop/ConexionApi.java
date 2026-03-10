@@ -533,7 +533,7 @@ public class ConexionApi {
             {
               "type": "execute",
               "stmt": {
-                "sql": "SELECT PERSONAJE_ID, NOMBRE_PERSONAJE, ID_CAMPANA, DESCRIPCION FROM PERSONAJE WHERE PERSONAJE_PERFIL = ?",
+                "sql": "SELECT PERSONAJE_ID, NOMBRE_PERSONAJE, ID_CAMPANA, DESCRIPCION, PERSONAJE_PERFIL FROM PERSONAJE WHERE PERSONAJE_PERFIL = ?",
                 "args": [{"type": "text", "value": "%s"}]
               }
             },
@@ -549,12 +549,49 @@ public class ConexionApi {
     List<List<String>> rows = extractAllRows(resp);
 
     for (List<String> row : rows) {
-      if (row.size() >= 3) {
+      if (row.size() >= 4) {
         String id = row.get(0);
         String nombre = row.get(1);
         String idCampana = row.get(2);
-        String descripcion = (row.size() >= 4 && row.get(3) != null) ? row.get(3) : "";
-        lista.add(new PersonajesId(id, nombre, idCampana, descripcion));
+        String descripcion = row.get(3) != null ? row.get(3) : "";
+        String perfil = (row.size() >= 5 && row.get(4) != null) ? row.get(4) : "";
+        lista.add(new PersonajesId(id, nombre, idCampana, descripcion, perfil));
+      }
+    }
+
+    return lista;
+  }
+
+  public static List<PersonajesId> obtenerPersonajesDeCampana(int idCampana) throws IOException {
+    String payload = """
+        {
+          "requests": [
+            {
+              "type": "execute",
+              "stmt": {
+                "sql": "SELECT PERSONAJE_ID, NOMBRE_PERSONAJE, ID_CAMPANA, DESCRIPCION, PERSONAJE_PERFIL FROM PERSONAJE WHERE ID_CAMPANA = ?",
+                "args": [{"type": "integer", "value": "%d"}]
+              }
+            },
+            { "type": "close" }
+          ]
+        }
+        """
+        .formatted(idCampana);
+
+    String resp = postToTurso(payload);
+
+    List<PersonajesId> lista = new ArrayList<>();
+    List<List<String>> rows = extractAllRows(resp);
+
+    for (List<String> row : rows) {
+      if (row.size() >= 4) {
+        String id = row.get(0);
+        String nombre = row.get(1);
+        String idCamp = row.get(2);
+        String descripcion = row.get(3) != null ? row.get(3) : "";
+        String perfil = (row.size() >= 5 && row.get(4) != null) ? row.get(4) : "";
+        lista.add(new PersonajesId(id, nombre, idCamp, descripcion, perfil));
       }
     }
 

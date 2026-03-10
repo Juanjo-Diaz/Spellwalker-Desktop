@@ -7,15 +7,17 @@ public class Personaje {
     private String escuela;
     private String spells;
     private String descripcion;
+    private String creador;
 
     public Personaje(int id, String nombrePersonaje, String nombreCampana, String escuela, String spells,
-            String descripcion) {
+            String descripcion, String creador) {
         this.id = id;
         this.nombrePersonaje = nombrePersonaje;
         this.nombreCampana = nombreCampana;
         this.escuela = escuela;
         this.spells = spells;
         this.descripcion = descripcion;
+        this.creador = creador;
     }
 
     public int getId() {
@@ -40,5 +42,9 @@ public class Personaje {
 
     public String getDescripcion() {
         return descripcion;
+    }
+
+    public String getCreador() {
+        return creador;
     }
 }
