@@ -10,7 +10,6 @@ import javafx.geometry.Insets;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class DetallePersonajeController implements Initializable {
@@ -68,12 +67,11 @@ public class DetallePersonajeController implements Initializable {
             cbHechizos.getItems().setAll(ConexionApi.obtenerTodosNombresHechizos());
 
         } catch (IOException e) {
-            e.printStackTrace();
-            mostrarError("Error al cargar datos del personaje");
+            mostrarError("Error al cargar datos del personaje" + e.getMessage());
         }
     }
     @FXML
-    public void handlerAnadirEscuela(ActionEvent event) {
+    public void handlerAnadirEscuela(ActionEvent ignoredEvent) {
         String seleccionada = cbEscuelas.getSelectionModel().getSelectedItem();
 
         if (seleccionada == null) return;
@@ -89,13 +87,12 @@ public class DetallePersonajeController implements Initializable {
             lvEscuelas.getItems().add(seleccionada);
 
         } catch (IOException e) {
-            e.printStackTrace();
-            mostrarError("Error al añadir escuela");
+            mostrarError("Error al añadir escuela" + e.getMessage());
         }
     }
 
     @FXML
-    public void handlerEliminarEscuela(ActionEvent event) {
+    public void handlerEliminarEscuela(ActionEvent ignoredEvent) {
         String seleccionada = lvEscuelas.getSelectionModel().getSelectedItem();
         if (seleccionada == null) return;
 
@@ -105,12 +102,11 @@ public class DetallePersonajeController implements Initializable {
             lvEscuelas.getItems().remove(seleccionada);
 
         } catch (IOException e) {
-            e.printStackTrace();
-            mostrarError("Error al eliminar escuela");
+            mostrarError("Error al eliminar escuela"+e.getMessage());
         }
     }
     @FXML
-    public void handlerAnadirHechizo(ActionEvent event) {
+    public void handlerAnadirHechizo(ActionEvent ignoredEvent) {
         String seleccionado = cbHechizos.getSelectionModel().getSelectedItem();
         if (seleccionado == null) return;
 
@@ -129,13 +125,12 @@ public class DetallePersonajeController implements Initializable {
                 tvHechizos.getItems().add(h);
             }
         } catch (IOException e) {
-            e.printStackTrace();
-            mostrarError("Error al añadir hechizo");
+            mostrarError("Error al añadir hechizo" + e.getMessage());
         }
     }
 
     @FXML
-    public void handlerEliminarHechizo(ActionEvent event) {
+    public void handlerEliminarHechizo(ActionEvent ignoreEvent) {
         Hechizo h = tvHechizos.getSelectionModel().getSelectedItem();
         if (h == null) return;
 
@@ -144,18 +139,17 @@ public class DetallePersonajeController implements Initializable {
             tvHechizos.getItems().remove(h);
 
         } catch (IOException e) {
-            e.printStackTrace();
-            mostrarError("Error al eliminar hechizo");
+            mostrarError("Error al eliminar hechizo"+ e.getMessage());
         }
     }
 
     @FXML
-    public void handlerIrACrearHechizo(ActionEvent event) {
+    public void handlerIrACrearHechizo(ActionEvent ignoredEvent) {
         SceneManager.switchTo("/com/spellwalker/spellwalker_desktop/crear_hechizo-view.fxml", true);
     }
 
     @FXML
-    public void handlerGuardar(ActionEvent event) {
+    public void handlerGuardar(ActionEvent ignoredEvent) {
         try {
             ConexionApi.actualizarDescripcionPersonaje(
                     personaje.getId(),
@@ -165,14 +159,13 @@ public class DetallePersonajeController implements Initializable {
             mostrarExito("Descripción guardada correctamente");
 
         } catch (IOException e) {
-            e.printStackTrace();
-            mostrarError("Error al guardar descripción");
+            mostrarError("Error al guardar descripción"+ e.getMessage());
         }
     }
 
 
     @FXML
-    public void handlerBorrarPersonaje(ActionEvent event) {
+    public void handlerBorrarPersonaje(ActionEvent ignoredEvent) {
 
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle("Confirmar Borrado");
@@ -211,13 +204,12 @@ public class DetallePersonajeController implements Initializable {
                 }
 
             } catch (Exception e) {
-                e.printStackTrace();
-                mostrarError("Error al conectar con el servidor.");
+                mostrarError("Error al conectar con el servidor."+ e.getMessage());
             }
         });
     }
     @FXML
-    public void handlerVolver(ActionEvent event) {
+    public void handlerVolver(ActionEvent ignoredEvent) {
         SceneManager.goBack();
     }
     private void mostrarExito(String msg) {

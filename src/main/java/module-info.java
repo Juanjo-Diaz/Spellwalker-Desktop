@@ -7,6 +7,7 @@ module com.spellwalker.spellwalker_desktop {
     requires jakarta.mail;
     requires java.net.http;
     requires java.desktop;
+    requires static lombok;
 
 
     opens com.spellwalker.spellwalker_desktop to javafx.fxml;

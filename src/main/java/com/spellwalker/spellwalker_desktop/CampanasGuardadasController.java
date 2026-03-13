@@ -55,13 +55,12 @@ public class CampanasGuardadasController implements Initializable {
             tablaCampanas.setItems(listaCampanas);
 
         } catch (Exception e) {
-            e.printStackTrace();
-            mostrarError("Ocurrió un error al cargar las campañas.");
+            mostrarError("Ocurrió un error al cargar las campañas."+ e.getMessage());
         }
     }
 
     @FXML
-    public void handlerInvitar(ActionEvent event) {
+    public void handlerInvitar(ActionEvent ignoredEvent) {
         Campana campanaSeleccionada = tablaCampanas.getSelectionModel().getSelectedItem();
         if (campanaSeleccionada == null) {
             mostrarError("Por favor, selecciona una campaña de la tabla primero.");
@@ -90,13 +89,12 @@ public class CampanasGuardadasController implements Initializable {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
-            mostrarError("Ocurrió un error inesperado al invitar al usuario.");
+            mostrarError("Ocurrió un error inesperado al invitar al usuario."+ e.getMessage());
         }
     }
 
     @FXML
-    public void handlerVolver(ActionEvent event) {
+    public void handlerVolver(ActionEvent ignoredEvent) {
         SceneManager.goBack();
     }
 

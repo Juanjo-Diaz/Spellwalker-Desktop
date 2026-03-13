@@ -22,15 +22,13 @@ public class MainAppController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) { }
 
     @FXML
-    public void handlerAcceder(ActionEvent event) {
+    public void handlerAcceder(ActionEvent ignoredEvent) {
         String usuario = campoUsuario.getText().trim();
         String contrasena = campoContrasena.getText().trim();
 
         if (ConexionApi.login(usuario, contrasena)) {
 
             MainApp.usuario.put("usuario", usuario);
-
-            // <-- ESTA ES LA RUTA CORRECTA
             SceneManager.switchTo("/com/spellwalker/spellwalker_desktop/crear_personaje-view.fxml");
 
         } else {

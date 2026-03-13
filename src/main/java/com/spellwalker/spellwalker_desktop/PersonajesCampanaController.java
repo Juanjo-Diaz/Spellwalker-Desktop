@@ -1,7 +1,5 @@
 package com.spellwalker.spellwalker_desktop;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -86,12 +84,12 @@ public class PersonajesCampanaController implements Initializable {
                 );
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
     @FXML
-    public void handlerVolver(ActionEvent actionEvent) {
+    public void handlerVolver(ActionEvent ignoredActionEvent) {
         SceneManager.goBack();
     }
 }

@@ -14,7 +14,7 @@ public class CrearCampanaController {
     private TextArea campoDescripcion;
 
     @FXML
-    public void handlerCrear(ActionEvent event) {
+    public void handlerCrear(ActionEvent ignoredEvent) {
         String nombre = campoNombre.getText();
         String descripcion = campoDescripcion.getText();
 
@@ -28,19 +28,19 @@ public class CrearCampanaController {
             boolean creado = ConexionApi.crearNuevaCampana(nombre, descripcion, usuarioActual);
 
             if (creado) {
-                mostrarInfo("Campaña creada correctamente.");
+                mostrarInfo();
                 SceneManager.goBack();
             } else {
                 mostrarError("No se pudo crear la campaña. Quizás ya existe otra con el mismo nombre.");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             mostrarError("Ocurrió un error al conectar con el servidor.");
         }
     }
 
     @FXML
-    public void handlerVolver(ActionEvent event) {
+    public void handlerVolver(ActionEvent ignoredEvent) {
         SceneManager.goBack();
     }
 
@@ -51,10 +51,10 @@ public class CrearCampanaController {
         alert.showAndWait();
     }
 
-    private void mostrarInfo(String msg) {
+    private void mostrarInfo() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Éxito");
-        alert.setContentText(msg);
+        alert.setContentText("Campaña creada correctamente.");
         alert.showAndWait();
     }
 }

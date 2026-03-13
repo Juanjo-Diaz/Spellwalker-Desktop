@@ -1,5 +1,12 @@
 package com.spellwalker.spellwalker_desktop;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Hechizo {
     private int id;
     private String nombre;
@@ -9,62 +16,5 @@ public class Hechizo {
     private String velocidad;
     private int legendario;
     private int escuelaId;
-    private int esFusion; 
-    
-    public Hechizo(int id, String nombre, int costeAp, int costeMana, String tipo, String velocidad, int legendario,
-            int escuelaId, int esFusion) {
-        this.id = id;
-        this.nombre = nombre;
-        this.costeAp = costeAp;
-        this.costeMana = costeMana;
-        this.tipo = tipo;
-        this.velocidad = velocidad;
-        this.legendario = legendario;
-        this.escuelaId = escuelaId;
-        this.esFusion = esFusion;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public int getCosteAp() {
-        return costeAp;
-    }
-
-    public int getCosteMana() {
-        return costeMana;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public String getVelocidad() {
-        return velocidad;
-    }
-
-    public int getLegendario() {
-        return legendario;
-    }
-
-    public int getEscuelaId() {
-        return escuelaId;
-    }
-
-    public int getEsFusion() {
-        return esFusion;
-    }
-
-    public String getLegendarioTexto() {
-        return legendario == 1 ? "Sí" : "No";
-    }
-
-    public String getEsFusionTexto() {
-        return esFusion == 1 ? "Sí" : "No";
-    }
+    private int esFusion;
 }

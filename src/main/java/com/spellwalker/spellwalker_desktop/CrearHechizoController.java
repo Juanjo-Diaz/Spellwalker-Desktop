@@ -23,17 +23,17 @@ public class CrearHechizoController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             comboTipo.getItems().addAll("Cargable", "Canalizable", "Encadenable", "Normal");
-            comboVelocidad.getItems().addAll("Rápido", "Normal", "Lento", "Rápida");
+            comboVelocidad.getItems().addAll("Rápido", "Normal", "Lento");
 
             List<String> escuelas = ConexionApi.obtenerTodasLasEscuelas();
             comboEscuela.getItems().addAll(escuelas);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
     @FXML
-    public void handlerCrear(ActionEvent event) {
+    public void handlerCrear(ActionEvent ignoredEvent) {
         try {
             String nombre = campoNombre.getText();
             String apStr = campoAp.getText();
@@ -62,7 +62,7 @@ public class CrearHechizoController implements Initializable {
 
             if (creado) {
                 mostrarAlerta("Éxito", "Hechizo creado correctamente.", Alert.AlertType.INFORMATION);
-                SceneManager.goBack(); // volver automáticamente
+                SceneManager.goBack();
             } else {
                 mostrarAlerta("Error", "No se pudo crear el hechizo.", Alert.AlertType.ERROR);
             }
@@ -71,13 +71,12 @@ public class CrearHechizoController implements Initializable {
             mostrarAlerta("Error", "AP y Maná deben ser números enteros.", Alert.AlertType.ERROR);
 
         } catch (Exception e) {
-            e.printStackTrace();
-            mostrarAlerta("Error", "Ocurrió un error inesperado.", Alert.AlertType.ERROR);
+            mostrarAlerta("Error", "Ocurrió un error inesperado: "+e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
     @FXML
-    public void handlerVolver(ActionEvent event) {
+    public void handlerVolver(ActionEvent ignoredEvent) {
         SceneManager.goBack();
     }
 

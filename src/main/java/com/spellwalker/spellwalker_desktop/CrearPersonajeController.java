@@ -7,7 +7,6 @@ import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CrearPersonajeController implements Initializable {
@@ -40,17 +39,17 @@ public class CrearPersonajeController implements Initializable {
     }
 
     @FXML
-    public void handlerNuevaCampana(ActionEvent event) {
+    public void handlerNuevaCampana(ActionEvent ignoredEvent) {
         SceneManager.switchTo("/com/spellwalker/spellwalker_desktop/crear_campana-view.fxml", true);
     }
 
     @FXML
-    public void handlerCampanasGuardadas(ActionEvent event) {
+    public void handlerCampanasGuardadas(ActionEvent ignoredEvent) {
         SceneManager.switchTo("/com/spellwalker/spellwalker_desktop/campanas_guardadas-view.fxml", true);
     }
 
     @FXML
-    public void handlerCrear(ActionEvent event) {
+    public void handlerCrear(ActionEvent ignoredEvent) {
         String nombrePersonaje = campoNombre.getText();
         String nombreCampana = comboCampana.getValue();
         String nombreEscuela = comboEscuela.getValue();
@@ -86,7 +85,7 @@ public class CrearPersonajeController implements Initializable {
                 boolean spell2Ins = ConexionApi.insertarSpellAPersonaje(nombrePersonaje, spell2);
 
                 if (vinculado && spell1Ins && spell2Ins) {
-                    mostrarInfo("Personaje creado, vinculado y hechizos asignados.");
+                    mostrarInfo();
 
                     // Limpiar campos
                     campoNombre.clear();
@@ -96,29 +95,29 @@ public class CrearPersonajeController implements Initializable {
                     comboSpell2.getSelectionModel().clearSelection();
 
                 } else {
-                    mostrarWarning("El personaje se creó, pero hubo un error al vincular la escuela o los hechizos.");
+                    mostrarWarning();
                 }
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
     @FXML
-    public void handlerCerrarSesion(ActionEvent actionEvent) {
+    public void handlerCerrarSesion(ActionEvent ignoredActionEvent) {
         MainApp.usuario.clear();
 
         SceneManager.switchTo("/com/spellwalker/spellwalker_desktop/login-view.fxml");
     }
 
     @FXML
-    public void handlerPersonajesGuardados(ActionEvent actionEvent) {
+    public void handlerPersonajesGuardados(ActionEvent ignoredActionEvent) {
         SceneManager.switchTo("/com/spellwalker/spellwalker_desktop/personajes_guardados.fxml", true);
     }
 
     @FXML
-    public void handlerIrACrearHechizo(ActionEvent event) {
+    public void handlerIrACrearHechizo(ActionEvent ignoredEvent) {
         SceneManager.switchTo("/com/spellwalker/spellwalker_desktop/crear_hechizo-view.fxml", true);
     }
 
@@ -129,17 +128,17 @@ public class CrearPersonajeController implements Initializable {
         alert.showAndWait();
     }
 
-    private void mostrarInfo(String msg) {
+    private void mostrarInfo() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Éxito");
-        alert.setContentText(msg);
+        alert.setContentText("Personaje creado, vinculado y hechizos asignados.");
         alert.showAndWait();
     }
 
-    private void mostrarWarning(String msg) {
+    private void mostrarWarning() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Aviso");
-        alert.setContentText(msg);
+        alert.setContentText("El personaje se creó, pero hubo un error al vincular la escuela o los hechizos.");
         alert.showAndWait();
     }
 }
