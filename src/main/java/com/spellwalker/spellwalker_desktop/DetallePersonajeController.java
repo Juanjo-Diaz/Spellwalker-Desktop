@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DetallePersonajeController implements Initializable {
@@ -18,7 +19,7 @@ public class DetallePersonajeController implements Initializable {
     @FXML private Label lblCampana;
     @FXML private ComboBox<String> cbEscuelas;
     @FXML private ListView<String> lvEscuelas;
-    @FXML private ComboBox<String> cbHechizos;
+    @FXML private ComboBox<SpellItem> cbHechizos;
     @FXML private TableView<Hechizo> tvHechizos;
     @FXML private TableColumn<Hechizo, String> colNombre;
     @FXML private TableColumn<Hechizo, Integer> colCosteAp;
@@ -64,7 +65,10 @@ public class DetallePersonajeController implements Initializable {
             );
 
             cbEscuelas.getItems().setAll(ConexionApi.obtenerTodasLasEscuelas());
-            cbHechizos.getItems().setAll(ConexionApi.obtenerTodosNombresHechizos());
+            
+            List<SpellItem> hechizosAgrupados = ConexionApi.obtenerHechizosAgrupadosPorEscuela();
+            SpellComboBoxHelper.setupSpellComboBox(cbHechizos);
+            cbHechizos.getItems().setAll(hechizosAgrupados);
 
         } catch (IOException e) {
             mostrarError("Error al cargar datos del personaje" + e.getMessage());
@@ -107,11 +111,11 @@ public class DetallePersonajeController implements Initializable {
     }
     @FXML
     public void handlerAnadirHechizo(ActionEvent ignoredEvent) {
-        String seleccionado = cbHechizos.getSelectionModel().getSelectedItem();
+        SpellItem seleccionado = cbHechizos.getSelectionModel().getSelectedItem();
         if (seleccionado == null) return;
 
         boolean yaExiste = tvHechizos.getItems().stream()
-                .anyMatch(h -> h.getNombre().equals(seleccionado));
+                .anyMatch(h -> h.getNombre().equals(seleccionado.getName()));
 
         if (yaExiste) {
             mostrarError("El personaje ya conoce este hechizo.");
@@ -119,7 +123,7 @@ public class DetallePersonajeController implements Initializable {
         }
 
         try {
-            Hechizo h = ConexionApi.obtenerHechizoPorNombre(seleccionado);
+            Hechizo h = ConexionApi.obtenerHechizoPorNombre(seleccionado.getName());
             if (h != null) {
                 ConexionApi.vincularHechizoAPersonaje(personaje.getId(), h.getId());
                 tvHechizos.getItems().add(h);

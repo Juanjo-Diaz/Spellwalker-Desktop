@@ -680,6 +680,41 @@ public class ConexionApi {
     return extraerNombresDeJson(resp);
   }
 
+  public static List<SpellItem> obtenerHechizosAgrupadosPorEscuela() throws IOException {
+    String payload = """
+        {
+          "requests": [
+            {
+              "type": "execute",
+              "stmt": {
+                "sql": "SELECT S.NOMBRE, E.NOMBRE FROM SPELLS S JOIN ESCUELAS E ON S.ESCUELA_ID = E.ID_ESCUELAS ORDER BY E.NOMBRE, S.NOMBRE"
+              }
+            },
+            { "type": "close" }
+          ]
+        }
+        """;
+
+    String resp = postToTurso(payload);
+    List<List<String>> rows = extractAllRows(resp);
+    List<SpellItem> result = new ArrayList<>();
+    String lastSchool = "";
+
+    for (List<String> row : rows) {
+      if (row.size() >= 2) {
+        String spellName = row.get(0);
+        String schoolName = row.get(1);
+
+        if (!schoolName.equals(lastSchool)) {
+          result.add(SpellItem.header(schoolName));
+          lastSchool = schoolName;
+        }
+        result.add(SpellItem.spell(spellName, schoolName));
+      }
+    }
+    return result;
+  }
+
   public static List<String> obtenerEscuelasDePersonaje(int idPersonaje) throws IOException {
     String payload = """
         {

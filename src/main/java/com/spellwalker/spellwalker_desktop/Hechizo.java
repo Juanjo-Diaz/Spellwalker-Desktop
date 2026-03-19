@@ -17,4 +17,12 @@ public class Hechizo {
     private int legendario;
     private int escuelaId;
     private int esFusion;
+
+    public String getLegendarioTexto() {
+        return legendario == 1 ? "Sí" : "No";
+    }
+
+    public String getEsFusionTexto() {
+        return esFusion == 1 ? "Sí" : "No";
+    }
 }

@@ -18,20 +18,24 @@ public class CrearPersonajeController implements Initializable {
     @FXML
     private ComboBox<String> comboEscuela;
     @FXML
-    private ComboBox<String> comboSpell1;
+    private ComboBox<SpellItem> comboSpell1;
     @FXML
-    private ComboBox<String> comboSpell2;
+    private ComboBox<SpellItem> comboSpell2;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            comboEscuela.getItems().addAll(ConexionApi.obtenerTodasLasEscuelas());
+            List<String> escuelas = ConexionApi.obtenerTodasLasEscuelas();
+            comboEscuela.getItems().addAll(escuelas);
             String currentUser = (String) MainApp.usuario.get("usuario");
             comboCampana.getItems().addAll(ConexionApi.obtenerCampanasDeUsuarioStr(currentUser));
 
-            List<String> hechizos = ConexionApi.obtenerTodosNombresHechizos();
-            comboSpell1.getItems().addAll(hechizos);
-            comboSpell2.getItems().addAll(hechizos);
+            List<SpellItem> hechizosAgrupados = ConexionApi.obtenerHechizosAgrupadosPorEscuela();
+            SpellComboBoxHelper.setupSpellComboBox(comboSpell1);
+            SpellComboBoxHelper.setupSpellComboBox(comboSpell2);
+
+            comboSpell1.getItems().addAll(hechizosAgrupados);
+            comboSpell2.getItems().addAll(hechizosAgrupados);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -53,8 +57,8 @@ public class CrearPersonajeController implements Initializable {
         String nombrePersonaje = campoNombre.getText();
         String nombreCampana = comboCampana.getValue();
         String nombreEscuela = comboEscuela.getValue();
-        String spell1 = comboSpell1.getValue();
-        String spell2 = comboSpell2.getValue();
+        SpellItem spell1 = comboSpell1.getValue();
+        SpellItem spell2 = comboSpell2.getValue();
 
         if (nombrePersonaje == null || nombrePersonaje.isBlank() ||
                 nombreCampana == null || nombreEscuela == null ||
@@ -80,11 +84,11 @@ public class CrearPersonajeController implements Initializable {
 
             if (idPersonaje != -1 && idEscuela != -1) {
 
-                boolean vinculado = ConexionApi.vincularPersonajeAEscuela(idPersonaje, idEscuela);
-                boolean spell1Ins = ConexionApi.insertarSpellAPersonaje(nombrePersonaje, spell1);
-                boolean spell2Ins = ConexionApi.insertarSpellAPersonaje(nombrePersonaje, spell2);
+                boolean vinculacionEscuela = ConexionApi.vincularPersonajeAEscuela(idPersonaje, idEscuela);
+                boolean spell1Ins = ConexionApi.insertarSpellAPersonaje(nombrePersonaje, spell1.getName());
+                boolean spell2Ins = ConexionApi.insertarSpellAPersonaje(nombrePersonaje, spell2.getName());
 
-                if (vinculado && spell1Ins && spell2Ins) {
+                if (vinculacionEscuela && spell1Ins && spell2Ins) {
                     mostrarInfo();
 
                     // Limpiar campos
