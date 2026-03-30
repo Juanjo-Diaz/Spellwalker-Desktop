@@ -91,7 +91,6 @@ public class CrearPersonajeController implements Initializable {
                 if (vinculacionEscuela && spell1Ins && spell2Ins) {
                     mostrarInfo();
 
-                    // Limpiar campos
                     campoNombre.clear();
                     comboCampana.getSelectionModel().clearSelection();
                     comboEscuela.getSelectionModel().clearSelection();

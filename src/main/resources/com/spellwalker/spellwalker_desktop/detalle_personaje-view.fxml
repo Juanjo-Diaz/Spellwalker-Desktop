@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1764.0" styleClass="root" stylesheets="@detalle_personaje.css"
+<AnchorPane styleClass="root" stylesheets="@detalle_personaje.css"
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.spellwalker.spellwalker_desktop.DetallePersonajeController">
     <VBox alignment="CENTER" spacing="20" styleClass="main-container" AnchorPane.leftAnchor="100.0"

@@ -28,32 +28,25 @@ public class SceneManager {
             throw new IllegalStateException("SceneManager no fue inicializado.");
         }
 
-        boolean wasMaximized = mainStage.isMaximized();
-        Scene previousScene = mainStage.getScene();
-
         try {
             FXMLLoader loader = new FXMLLoader(
                     SceneManager.class.getResource(fxmlPath)
             );
 
             Parent root = loader.load();
-            Scene newScene = new Scene(root);
+
+            Scene previousScene = mainStage.getScene();
+            Scene newScene;
+            if (previousScene != null && previousScene.getWidth() > 0 && previousScene.getHeight() > 0) {
+                newScene = new Scene(root, previousScene.getWidth(), previousScene.getHeight());
+            } else {
+                newScene = new Scene(root);
+            }
 
             if (saveHistory && previousScene != null)
                 history.push(previousScene);
 
-            if (wasMaximized)
-                mainStage.setMaximized(false);
-
             mainStage.setScene(newScene);
-
-            if (wasMaximized) {
-                Platform.runLater(() ->
-                        Platform.runLater(() ->
-                                mainStage.setMaximized(true)
-                        )
-                );
-            }
 
             return loader.getController();
 
@@ -66,20 +59,7 @@ public class SceneManager {
     public static void goBack() {
         if (!history.isEmpty()) {
             Scene previous = history.pop();
-
-            boolean wasMaximized = mainStage.isMaximized();
-            if (wasMaximized)
-                mainStage.setMaximized(false);
-
             mainStage.setScene(previous);
-
-            if (wasMaximized) {
-                Platform.runLater(() ->
-                        Platform.runLater(() ->
-                                mainStage.setMaximized(true)
-                        )
-                );
-            }
         }
     }
 

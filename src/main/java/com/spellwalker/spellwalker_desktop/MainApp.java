@@ -18,6 +18,8 @@ public class MainApp extends Application {
         SceneManager.init(stage);
         SceneManager.switchTo("/com/spellwalker/spellwalker_desktop/login-view.fxml");
         stage.setMaximized(true);
+        stage.setMinWidth(1024);
+        stage.setMinHeight(768);
         MainApp.configurarStage(stage);
         stage.setTitle("SpellWalker");
         stage.show();
